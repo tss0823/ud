@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="ValidRuleMapper">  
+   
+	<resultMap type="ValidRule" id="validRuleMap">
+		<result  column="id" property="id"/>
+		<result  column="gmt_create" property="gmtCreate"/>
+		<result  column="gmt_modify" property="gmtModify"/>
+		<result  column="del_state" property="delState"/>
+		<result  column="type" property="type"/>
+		<result  column="js_regex" property="jsRegex"/>
+		<result  column="java_regex" property="javaRegex"/>
+		<result  column="name" property="name"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null and id != ''">
+		 and  `id` = #{id}
+		</if> 
+		<if test="gmtCreate != null and gmtCreate != ''">
+		 and  `gmt_create` = #{gmtCreate}
+		</if> 
+		<if test="gmtModify != null and gmtModify != ''">
+		 and  `gmt_modify` = sysdate
+		</if> 
+		<if test="type != null and type != ''">
+		 and  `type` = #{type}
+		</if> 
+		<if test="jsRegex != null and jsRegex != ''">
+		 and  `js_regex` = #{jsRegex}
+		</if> 
+		<if test="javaRegex != null and javaRegex != ''">
+		 and  `java_regex` = #{javaRegex}
+		</if> 
+		<if test="name != null and name != ''">
+		 and  `name` = #{name}
+		</if> 
+	</sql>
+	
+	<select id="getValidRule" resultMap="validRuleMap">
+		 select * from valid_rule WHERE id = #{id}
+    </select>
+    
+    <insert id="insertValidRule" parameterType="ValidRule" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into valid_rule   
+		(
+		`gmt_create`,`gmt_modify`,`del_state`,`type`,`js_regex`,`java_regex`,`name`
+		) 
+		values
+		(
+		now(6),now(6),1,#{ type},#{ jsRegex},#{ javaRegex},#{ name}
+		)
+    </insert>  
+    
+    <update id="updateValidRule" parameterType="ValidRule">  
+		update valid_rule set
+		`gmt_modify` = now(6),`type` = #{ type},`js_regex` = #{ jsRegex},`java_regex` = #{ javaRegex}	      
+		,`name` = #{ name}
+		where id = #{id}
+    </update>  
+    
+	<select id="getValidRuleList" resultMap="validRuleMap"  parameterType="Map">
+      select * from valid_rule 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getValidRuleListPage" resultMap="validRuleMap"  parameterType="Map">
+      select * from valid_rule 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getValidRuleListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from valid_rule 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteValidRule" parameterType="Long">  
+        update  valid_rule set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+     <!-- user definition code end -->
+</mapper> 
+
+

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="DbConfigureMapper">  
+   
+	<resultMap type="DbConfigure" id="dbConfigureMap">
+		<result  column="id" property="id"/>
+		<result  column="url" property="url"/>
+		<result  column="driver" property="driver"/>
+		<result  column="user" property="user"/>
+		<result  column="password" property="password"/>
+		<result  column="type" property="type"/>
+		<result  column="del_state" property="delState"/>
+		<result  column="table_space" property="tableSpace"/>
+		<result  column="name" property="name"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null and id != ''">
+		 and  `id` = #{id}
+		</if> 
+		<if test="url != null and url != ''">
+		 and  `url` = #{url}
+		</if> 
+		<if test="driver != null and driver != ''">
+		 and  `driver` = #{driver}
+		</if> 
+		<if test="user != null and user != ''">
+		 and  `user` = #{user}
+		</if> 
+		<if test="password != null and password != ''">
+		 and  `password` = #{password}
+		</if> 
+		<if test="type != null and type != ''">
+		 and  `type` = #{type}
+		</if> 
+		<if test="tableSpace != null and tableSpace != ''">
+		 and  `table_space` = #{tableSpace}
+		</if> 
+		<if test="name != null and name != ''">
+		 and  `name` = #{name}
+		</if> 
+	</sql>
+	
+	<select id="getDbConfigure" resultMap="dbConfigureMap">
+		 select * from db_configure WHERE id = #{id}
+    </select>
+    
+    <insert id="insertDbConfigure" parameterType="DbConfigure" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into db_configure   
+		(
+		`url`,`driver`,`user`,`password`,`type`,`del_state`,`table_space`,`name`
+		) 
+		values
+		(
+		#{ url},#{ driver},#{ user},#{ password},#{ type},1,#{ tableSpace},#{ name}
+		)
+    </insert>  
+    
+    <update id="updateDbConfigure" parameterType="DbConfigure">  
+		update db_configure set
+		`url` = #{ url},`driver` = #{ driver},`user` = #{ user},`password` = #{ password}	      
+		,`type` = #{ type},`table_space` = #{ tableSpace},`name` = #{ name}
+		where id = #{id}
+    </update>  
+    
+	<select id="getDbConfigureList" resultMap="dbConfigureMap"  parameterType="Map">
+      select * from db_configure 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getDbConfigureListPage" resultMap="dbConfigureMap"  parameterType="Map">
+      select * from db_configure 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getDbConfigureListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from db_configure 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteDbConfigure" parameterType="Long">  
+        update  db_configure set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+     <!-- user definition code end -->
+</mapper> 
+
+

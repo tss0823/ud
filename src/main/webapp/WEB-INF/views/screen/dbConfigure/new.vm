@@ -1,0 +1,58 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.edit-1.0.0.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/jquery.ud.validator.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ud.validator.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/project/project.js"></script>
+<div id="div_edit" class="div_edit">
+	<form id="editForm">
+    	<table class="tb_edit">
+    		 <tr>
+    			<td class="td_label">名称：</td>
+    			<td class="td_text">
+					<input type="text" name="name" id="name"/>
+				</td>
+    			<td class="td_label">类型：</td>
+    			<td class="td_text">
+					<select id="type" name="type">
+					  #foreach($item in $!dbTypeList)
+						<option value="$!item.value">$!item.value</option>
+					  #end	
+					</select>
+				</td>
+             </tr>
+			 <tr>
+    			<td class="td_label">驱动：</td>
+    			<td class="td_text"  colspan="3">
+					<input type="text" name="driver" id="driver" value="$!domain.driver"  style="width:400px"/>
+				</td>
+             </tr>
+    		 <tr>
+    			<td class="td_label">地址：</td>
+    			<td class="td_text" colspan="3">
+					<input type="text" name="url" id="url"  style="width:680px"/>
+				</td>
+             </tr>
+    		 <tr>
+    			<td class="td_label">用户名：</td>
+    			<td class="td_text">
+					<input type="text" name="user" id="user"/>
+				</td>
+    			<td class="td_label">密码：</td>
+    			<td class="td_text">
+					<input type="text" name="password" id="password"/>
+				</td>
+             </tr>
+    		 <tr>
+    			<td class="td_label">表空间：</td>
+    			<td class="td_text"  colspan="3">
+					<input type="text" name="tableSpace" id="tableSpace"/>
+				</td>
+             </tr>
+        </table>
+        <table width="100%" style="margin-top:20px">
+		   <tr class="td_btn">
+              <td ><input type="button" value="保存" class="btn btn_save" id="save" /></td>
+			</tr>
+		</table>
+    </form>   
+</div>

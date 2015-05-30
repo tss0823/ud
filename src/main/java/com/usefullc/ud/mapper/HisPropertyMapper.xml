@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="HisPropertyMapper">  
+   
+	<resultMap type="HisProperty" id="hisPropertyMap">
+		<result  column="id" property="id"/>
+		<result  column="cn_name" property="cnName"/>
+		<result  column="en_name" property="enName"/>
+		<result  column="entity_id" property="entityId"/>
+		<result  column="gmt_create" property="gmtCreate"/>
+		<result  column="gmt_modify" property="gmtModify"/>
+		<result  column="del_state" property="delState"/>
+		<result  column="data_type" property="dataType"/>
+		<result  column="length" property="length"/>
+		<result  column="primary_key" property="primaryKey"/>
+		<result  column="default_value" property="defaultValue"/>
+		<result  column="is_null" property="isNull"/>
+		<result  column="order" property="order"/>
+		<result  column="source_type" property="sourceType"/>
+		<result  column="source" property="source"/>
+		<result  column="remark" property="remark"/>
+		<result  column="check_group" property="checkGroup"/>
+		<result  column="ver" property="ver"/>
+		<result  column="main_id" property="mainId"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null ">
+		 and  `id` = #{id}
+		</if> 
+		<if test="cnName != null ">
+		 and  `cn_name` = #{cnName}
+		</if> 
+		<if test="enName != null ">
+		 and  `en_name` = #{enName}
+		</if> 
+		<if test="entityId != null ">
+		 and  `entity_id` = #{entityId}
+		</if> 
+		<if test="gmtCreate != null ">
+		 and  `gmt_create` = #{gmtCreate}
+		</if> 
+		<if test="gmtModify != null ">
+		 and  `gmt_modify` = sysdate
+		</if> 
+		<if test="dataType != null ">
+		 and  `data_type` = #{dataType}
+		</if> 
+		<if test="length != null ">
+		 and  `length` = #{length}
+		</if> 
+		<if test="primaryKey != null ">
+		 and  `primary_key` = #{primaryKey}
+		</if> 
+		<if test="defaultValue != null ">
+		 and  `default_value` = #{defaultValue}
+		</if> 
+		<if test="isNull != null ">
+		 and  `is_null` = #{isNull}
+		</if> 
+		<if test="order != null ">
+		 and  `order` = #{order}
+		</if> 
+		<if test="sourceType != null ">
+		 and  `source_type` = #{sourceType}
+		</if> 
+		<if test="source != null ">
+		 and  `source` = #{source}
+		</if> 
+		<if test="remark != null ">
+		 and  `remark` = #{remark}
+		</if> 
+		<if test="checkGroup != null ">
+		 and  `check_group` = #{checkGroup}
+		</if> 
+		<if test="ver != null ">
+		 and  `ver` = #{ver}
+		</if> 
+		<if test="mainId != null ">
+		 and  `main_id` = #{mainId}
+		</if> 
+	</sql>
+	
+	<select id="getHisProperty" resultMap="hisPropertyMap">
+		 select * from his_property WHERE id = #{id}
+    </select>
+    
+    <insert id="insertHisProperty" parameterType="HisProperty" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into his_property   
+		(
+		`cn_name`,`en_name`,`entity_id`,`gmt_create`,`gmt_modify`,`del_state`,`data_type`,`length`,	      
+		`primary_key`,`default_value`,`is_null`,`order`,`source_type`,`source`,`remark`,`check_group`,	      
+		`ver`,`main_id`
+		) 
+		values
+		(
+		#{ cnName},#{ enName},#{ entityId},now(6),now(6),1,#{ dataType},#{ length},	      
+		#{ primaryKey},#{ defaultValue},#{ isNull},#{ order},#{ sourceType},#{ source},#{ remark},#{ checkGroup},	      
+		#{ ver},#{ mainId}
+		)
+    </insert>  
+    
+    <update id="updateHisProperty" parameterType="HisProperty">  
+		update his_property set
+		`cn_name` = #{ cnName},`en_name` = #{ enName},`entity_id` = #{ entityId},`gmt_modify` = now(6)	      
+		,`data_type` = #{ dataType},`length` = #{ length},`primary_key` = #{ primaryKey},`default_value` = #{ defaultValue}	      
+		,`is_null` = #{ isNull},`order` = #{ order},`source_type` = #{ sourceType},`source` = #{ source}	      
+		,`remark` = #{ remark},`check_group` = #{ checkGroup},`ver` = #{ ver},`main_id` = #{ mainId}
+		where id = #{id}
+    </update>  
+    
+	<select id="getHisPropertyList" resultMap="hisPropertyMap"  parameterType="Map">
+      select * from his_property 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getHisPropertyListPage" resultMap="hisPropertyMap"  parameterType="Map">
+      select * from his_property 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getHisPropertyListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from his_property 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteHisProperty" parameterType="Long">  
+        update  his_property set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+	<select id="getMaxVer" parameterType="Integer" resultType="Integer">
+		select count(1)+1 from his_property where main_id=#{mainId}
+	</select>
+	
+	<select id="getHisPropertyByVer" parameterType="Map" resultMap="hisPropertyMap">
+     		select * from his_property  where entity_id=#{entityId} and ver=#{ver}
+     </select>
+
+     <!-- user definition code end -->
+</mapper> 
+
+

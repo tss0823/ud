@@ -1,0 +1,56 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/entity/entity.js"></script>
+<div class="rightListDiv">
+	<div class="fun_area">
+        <div class="fun_area_left">
+		   <input type="button" id="enterNew" value="新建" class="btn btn_normal" param-id="$!appId" param-id-prop="appId" param-title="新建实体"/>
+           <input type="button" id="copy" value="复制" class="btn btn_normal"/>
+           <input type="button" id="syncApp" value="同步工程" class="btn btn_normal"/>
+           <input type="button" id="syncSql" value="同步SQL" class="btn btn_normal"/>
+           <input type="button" id="syncValid" value="同步校验" class="btn btn_normal"/>
+           <input type="button" id="buildApp" value="构建工程" class="btn btn_normal"/>
+           <input type="button" id="buildSql" value="构建SQL" class="btn btn_normal"/>
+           <input type="button" id="buildDelSql" value="构建删除SQL" class="btn btn_normal"/>
+           <input type="button" id="deleteAll" value="删除" class="btn btn_normal"/>
+	</div>
+    <div class="fun_area_right">
+	#parse("/common/page.vm")
+	</div>
+	</div>
+	<table class="tb_list">
+		 <tr class="tr_header">
+			<td><input type="checkbox" id="chkAll" /></td>
+			<td>序号</td>
+			<td>英文名称</td>
+			<td>中文名称</td>
+			<td>简称</td>
+			<td>实体ID</td>
+			<td>创建时间</td>
+			<td>修改时间</td>
+			<td>操作</td>
+         </tr>
+		 #foreach($item in $!page.dataList)
+			#set($rowNum=$!{velocityCount}+$!{page.startRow})
+            <tr class="#if($!velocityCount % 2 == 0)tr_cell_alt#else tr_cell#end">
+              <td><input type="checkbox" id="chkItem" value="$!item.id"/></td>
+              <td>$!rowNum</td>
+              <td class="tr_cell_left">$!item.enName</td>
+              <td class="tr_cell_left">$!item.cnName</td>
+              <td>$!item.shortName</td>
+              <td>$!item.appId</td>
+              <td>$!dateTool.format($!item.gmtCreate)</td>
+              <td>$!dateTool.format($!item.gmtModify)</td>
+             <td>
+			  <a id="enterEdit" param-id="$!item.id" param-title="<font color=red>[$!{item.cnName}]</font>实体修改">修改</a>|
+			  <a id="remove" param-id="$!item.id">删除</a>|
+			  <a id="propList" param-id="$!item.id" param-title="<font color=red>[$!{item.cnName}]</font>属性项列表">属性项</a>|
+			  <a id="propDetail" param-id="$!item.id" param-title="<font color=red>[$!{item.cnName}]</font>属性项列表">属性详情</a>
+			  </td>
+			</tr>
+		 #end	
+    </table>
+<div class="fun_area_right">
+#parse("/common/page.vm")
+</div>
+</div>

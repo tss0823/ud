@@ -1,0 +1,53 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/jquery.ud.validator.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ud.validator.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/table.comp.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/valid/valid.js"></script>
+<form>
+<div class="rightListDiv">
+	<div class="fun_area">
+        <div class="fun_area_left">
+			<input type="hidden" name="entityId" value="$!entityId" />
+			   <input type="button" id="saveOrUpdate" value="保存" class="btn btn_normal"/>
+			   ##<input type="button" id="addItem" value="添加" class="btn btn_normal"/>
+    
+	</div>
+	<div class="fun_area_right">
+	#parse("/common/page.vm")
+	</div>
+	</div>
+	<table class="tb_list" id="tbList">
+		 <tr class="tr_header">
+			<td width="8%">英文名称</td>
+			<td width="10%">中文名称</td>
+			<td width="10%">数据类型</td>
+			<td width="5%">长度</td>
+			<td width="5%">允许空</td>
+			<td width="10%">消息名称</td>
+			<td width="6%">规则</td>
+			<td width="10%">规则参数</td>
+			<td width="10%">非空|长度|规则消息</td>
+			<td width="5%">操作</td>
+         </tr>
+		 #foreach($item in $!page.dataList)
+            <tr class="#if($!velocityCount % 2 == 0)tr_cell_alt#else tr_cell#end">
+              <td><input type="hidden" id="ids" name="ids" value="$!item.id">$!item.enName</td>
+              <td>$!item.cnName</td>
+              <td>$!item.dataType</td>
+              <td>$!item.length</td>
+              <td>#if($!item.isNull)是#else 否#end</td>
+              <td><input type="text" name="msgName" value="$!item.msgName" style="width:100%" /></td>
+              <td><select id="ruleId" name="ruleId" param-id="$!item.ruleId" style="width:100%"><option value="">--无--</option></select></td>
+              <td><input type="text" name="ruleParam" value="$!item.ruleParam" style="width:100%" /></td>
+              <td><input type="text" name="msg" value="$!{item.msgForNull}$!{item.msgForLen}$!{item.msgForRule}" style="width:100%" /></td>
+              <td>
+				<input type="button" id="delItem" param-id="$!item.id" value="删除" class="btn btn_normal"/>
+			  </td>
+			</tr>
+		 #end	
+    </table>
+<div class="fun_area_right">
+	#parse("/common/page.vm")
+	</div>
+</div>
+</form>

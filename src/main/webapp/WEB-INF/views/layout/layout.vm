@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>$!pageTitle</title>
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common-1.0.0.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/scripts/common/bootstrap-3.1.1/css/bootstrap.min.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/bootstrap-3.1.1/js/bootstrap.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_data_util.js"></script>
+</head>
+<body>
+<input type="hidden" id="appsPath" value="$!serverPath"/>
+<input type="hidden" id="imagesPath" value="$!serverPath"/>
+$screen_content
+</body>
+</html>
+

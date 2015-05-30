@@ -1,0 +1,45 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/pop_menu.comp.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/genFile/genFile.js"></script>
+<form id="downloadForm" method="post" action="download.htm">
+ <input type="hidden" id="id" name="id"/>
+</form>
+<div class="rightListDiv">
+	<div class="fun_area">
+    <div class="fun_area_right">
+	#parse("/common/page.vm")
+	</div>
+	</div>
+	<table class="tb_list">
+		 <tr class="tr_header">
+			<td width="3%">序号</td>
+			<td width="10%">名称</td>
+			<td width="5%">类型</td>
+			<td width="7%">业务类型</td>
+			<td width="12%">路径</td>
+			<td width="7%">创建时间</td>
+			<td width="4%">流操作</td>
+         </tr>
+		 #foreach($item in $!page.dataList)
+			#set($rowNum=$!{velocityCount}+$!{page.startRow})
+            <tr class="#if($!velocityCount % 2 == 0)tr_cell_alt#else tr_cell#end">
+              <td>$!rowNum</td>
+              <td>$!item.name</td>
+              <td>$!item.type</td>
+              <td>$!item.bisType</td>
+              <td>$!item.path</td>
+			  <td>$!dateTool.format($!item.gmtCreate)</td>
+             <td>
+			  <a id="download" param-id="$!item.id" >下载</a>|
+              <a id="remove" param-id="$!item.id">删除</a>
+             </td>
+		
+			</tr>
+		 #end	
+    </table>
+<div class="fun_area_right">
+#parse("/common/page.vm")
+</div>
+</div>

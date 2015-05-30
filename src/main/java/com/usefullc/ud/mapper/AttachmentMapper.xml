@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="AttachmentMapper">  
+   
+	<resultMap type="Attachment" id="attachmentMap">
+		<result  column="type" property="type"/>
+		<result  column="id" property="id"/>
+		<result  column="gmt_create" property="gmtCreate"/>
+		<result  column="gmt_modify" property="gmtModify"/>
+		<result  column="del_state" property="delState"/>
+		<result  column="content" property="content"/>
+		<result  column="name" property="name"/>
+		<result  column="description" property="description"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="type != null and type != '' ">
+		 and  `type` = #{type}
+		</if> 
+		<if test="id != null and id != '' ">
+		 and  `id` = #{id}
+		</if> 
+		<if test="gmtCreate != null and gmtCreate != '' ">
+		 and  `gmt_create` = #{gmtCreate}
+		</if> 
+		<if test="gmtModify != null and gmtModify != '' ">
+		 and  `gmt_modify` = sysdate
+		</if> 
+		<if test="content != null and content != '' ">
+		 and  `content` = #{content}
+		</if> 
+		<if test="name != null and name != '' ">
+		 and  `name` = #{name}
+		</if> 
+		<if test="description != null and description != '' ">
+		 and  `description` = #{description}
+		</if> 
+	</sql>
+	
+	<select id="getAttachment" resultMap="attachmentMap">
+		 select * from attachment WHERE id = #{id}
+    </select>
+    
+    <insert id="insertAttachment" parameterType="Attachment" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into attachment   
+		(
+		`type`,`gmt_create`,`gmt_modify`,`del_state`,`content`,`name`,`description`
+		) 
+		values
+		(
+		#{ type},now(6),now(6),1,#{ content},#{ name},#{ description}
+		)
+    </insert>  
+    
+    <update id="updateAttachment" parameterType="Attachment">  
+		update attachment set
+		`type` = #{ type},`gmt_modify` = now(6),`content` = #{ content},`name` = #{ name}	      
+		,`description` = #{ description}
+		where id = #{id}
+    </update>  
+    
+	<select id="getAttachmentList" resultMap="attachmentMap"  parameterType="Map">
+      select * from attachment 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getAttachmentListPage" resultMap="attachmentMap"  parameterType="Map">
+      select * from attachment 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getAttachmentListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from attachment 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteAttachment" parameterType="Long">  
+        update  attachment set del_state = 0  where id = #{id}
+     </update>  
+	 
+     <!-- user definition code start -->
+     <!-- user definition code end -->
+</mapper> 
+
+

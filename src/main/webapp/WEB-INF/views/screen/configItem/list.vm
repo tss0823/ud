@@ -1,0 +1,42 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/configItem/configItem.js"></script>
+<div class="rightListDiv">
+	<div class="fun_area">
+        <div class="fun_area_left">
+        <input type="hidden" name="appId" id="appId" value="$!appId"/>
+        <div id="query_block" class="query_block">
+           <input type="hidden" name="appId" value="$!appId" />
+           <input type="file" name="propFile"  id="propFile"/>
+           <input type="button" value="上传prop" id="uploadProp" class="btn btn_normal"/>
+           <input type="button" id="enterNew" value="新建" class="btn btn_enterNew" />
+           <input type="button" id="enterEditAll" value="修改所有" class="btn btn_normal" />
+           <input type="button" id="deleteAll" value="删除所有" class="btn btn_normal" />
+        </div>
+	</div>
+	</div>
+	<div class="data_area">
+	#foreach($itemList in $!list)
+    <hr/>
+	<table class="tb_list">
+		<tr class="tr_header">
+          <td width="10%">名称：</td>
+          <td width="30%">
+            <div style="float:left">$!itemList.get(0).key</div>
+            <div style="margin: 0 auto;text-align:right;padding-right:15px;">
+    		    <a href="$!{serverPath}/configItem/enterEdit.htm?appId=$!appId&key=$!itemList.get(0).key">修改</a>
+    		    <a href="javascript:void(0)" id="remove" param-key="$!itemList.get(0).key" param-appId="$!appId">删除</a>
+			</div>
+		  </td>
+		</tr>
+		#foreach($childItem in $!itemList)
+        <tr>
+          <td>$!{childItem.module}：</td>
+          <td class="tr_cell_left">$!childItem.value</td>
+		</tr>
+		#end
+    </table>
+	#end
+    </div>
+</div>

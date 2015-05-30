@@ -1,0 +1,29 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.edit-1.0.0.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/jquery.ud.validator.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ud.validator.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/entity/entity.js"></script>
+<div id="div_edit" class="div_edit">
+	<form id="editForm">
+	    <input type="hidden" name="appId" value="$!appId" />
+    	<table class="tb_edit">
+    		 <tr>
+    			<td class="td_label">英文名称：</td>
+    			<td class="td_text"><input type="text" name="enName" id="enName"/><span class="val_msg"></span></td>
+             </tr>
+    		 <tr>
+    			<td class="td_label">中文名称：</td>
+    			<td class="td_text"><input type="text" name="cnName" id="cnName"/><span class="val_msg"></span></td>
+             </tr>
+    		 <tr>
+    			<td class="td_label">简称：</td>
+    			<td class="td_text"><input type="text" name="shortName" id="shortName"/><span class="val_msg"></span></td>
+             </tr>
+        </table>
+		<table width="100%" style="margin-top:20px">
+		   <tr class="td_btn">
+              <td ><input type="button" value="保存" class="btn btn_save" id="save" param-id="$!appId" param-id-prop="appId"/></td>
+			</tr>
+		</table>
+    </form>
+</div>

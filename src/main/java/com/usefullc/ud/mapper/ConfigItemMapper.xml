@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="ConfigItemMapper">  
+   
+	<resultMap type="ConfigItem" id="configItemMap">
+		<result  column="id" property="id"/>
+		<result  column="app_id" property="appId"/>
+		<result  column="key" property="key"/>
+		<result  column="value" property="value"/>
+		<result  column="module" property="module"/>
+		<result  column="del_state" property="delState"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null ">
+		 and  `id` = #{id}
+		</if> 
+		<if test="appId != null ">
+		 and  `app_id` = #{appId}
+		</if> 
+		<if test="key != null ">
+		 and  `key` = #{key}
+		</if> 
+		<if test="value != null ">
+		 and  `value` = #{value}
+		</if> 
+		<if test="module != null ">
+		 and  `module` = #{module}
+		</if> 
+	</sql>
+	
+	<select id="getConfigItem" resultMap="configItemMap">
+		 select * from config_item WHERE id = #{id}
+    </select>
+    
+    <insert id="insertConfigItem" parameterType="ConfigItem" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into config_item   
+		(
+		`app_id`,`key`,`value`,`module`,`del_state`
+		) 
+		values
+		(
+		#{ appId},#{ key},#{ value},#{ module},1
+		)
+    </insert>  
+    
+    <update id="updateConfigItem" parameterType="ConfigItem">  
+		update config_item set
+		`app_id` = #{ appId},`key` = #{ key},`value` = #{ value},`module` = #{ module}
+		where id = #{id}
+    </update>  
+    
+	<select id="getConfigItemList" resultMap="configItemMap"  parameterType="Map">
+      select * from config_item 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+      order by `key` asc 
+    </select>
+    
+	<select id="getConfigItemListPage" resultMap="configItemMap"  parameterType="Map">
+      select * from config_item 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by `key` asc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getConfigItemListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from config_item 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteConfigItem" parameterType="Long">  
+        update  config_item set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+     <delete id="deleteConfigItemByKey" parameterType="Map">  
+        delete  from config_item  where 1=1 
+		<if test="appId != null ">
+		 and  `app_id` = #{appId}
+		</if> 
+		<if test="key != null ">
+		 and  `key` = #{key}
+		</if> 
+     </delete>
+     
+      <update id="updateAllConfigItem" >  
+        insert into   config_item (id,value) values
+        <foreach collection="list" item="item" separator=",">
+           (#{item.id},#{item.value})
+        </foreach>
+        on duplicate key update value=values(value)
+     </update>  
+
+     <!-- user definition code end -->
+</mapper> 
+
+

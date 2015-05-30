@@ -1,0 +1,40 @@
+* {
+	margin:0;
+	padding:0;
+	border:0;
+}
+
+body{
+	  /*background:#D3D3D3 url(../images/common/login.jpg) no-repeat top;*/
+	 font-family: arial, 宋体, serif;
+    font-size:16px;
+}
+  
+a{
+  text-decoration: none;
+}
+
+input{
+	border: 1px solid #c2c2c2;
+	height:20px;
+}
+
+.btn{
+	height:25px;
+	font-size: 16px;
+	color:#fff;
+	border-radius: 2px;
+	background-color: #46a4ec;
+	font-weight: bold;
+	cursor: pointer;
+	padding:3px 5px;
+}
+
+.login{
+	text-align: center;
+	margin-top: 300px;
+}
+
+.login p{
+	margin-top:5px;
+}

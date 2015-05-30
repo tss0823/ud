@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="TemplateMapper">  
+   
+	<resultMap type="Template" id="templateMap">
+		<result  column="id" property="id"/>
+		<result  column="gmt_create" property="gmtCreate"/>
+		<result  column="gmt_modify" property="gmtModify"/>
+		<result  column="del_state" property="delState"/>
+		<result  column="app_id" property="appId"/>
+		<result  column="name" property="name"/>
+		<result  column="type" property="type"/>
+		<result  column="path" property="path"/>
+		<result  column="attachment_id" property="attachmentId"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null and id != '' ">
+		 and  `id` = #{id}
+		</if> 
+		<if test="gmtCreate != null and gmtCreate != '' ">
+		 and  `gmt_create` = #{gmtCreate}
+		</if> 
+		<if test="gmtModify != null and gmtModify != '' ">
+		 and  `gmt_modify` = sysdate
+		</if> 
+		<if test="appId != null and appId != '' ">
+		 and  `app_id` = #{appId}
+		</if> 
+		<if test="name != null and name != '' ">
+		 and  `name` = #{name}
+		</if> 
+		<if test="type != null and type != '' ">
+		 and  `type` = #{type}
+		</if> 
+		<if test="path != null and path != '' ">
+		 and  `path` = #{path}
+		</if> 
+		<if test="attachmentId != null and attachmentId != '' ">
+		 and  `attachment_id` = #{attachmentId}
+		</if> 
+	</sql>
+	
+	<select id="getTemplate" resultMap="templateMap">
+		 select * from template WHERE id = #{id}
+    </select>
+    
+    <insert id="insertTemplate" parameterType="Template" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into template   
+		(
+		`gmt_create`,`gmt_modify`,`del_state`,`app_id`,`name`,`type`,`path`,`attachment_id`
+		) 
+		values
+		(
+		now(6),now(6),1,#{ appId},#{ name},#{ type},#{ path},#{ attachmentId}
+		)
+    </insert>  
+    
+    <update id="updateTemplate" parameterType="Template">  
+		update template set
+		`gmt_modify` = now(6),`app_id` = #{ appId},`name` = #{ name},`type` = #{ type}	      
+		,`path` = #{ path},`attachment_id` = #{ attachmentId}
+		where id = #{id}
+    </update>  
+    
+	<select id="getTemplateList" resultMap="templateMap"  parameterType="Map">
+      select * from template 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getTemplateListPage" resultMap="templateMap"  parameterType="Map">
+      select * from template 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getTemplateListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from template 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteTemplate" parameterType="Long">  
+        update  template set del_state = 0  where id = #{id}
+     </update>  
+	 
+     <!-- user definition code start -->
+     <!-- user definition code end -->
+</mapper> 
+
+

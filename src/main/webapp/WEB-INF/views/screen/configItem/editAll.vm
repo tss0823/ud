@@ -1,0 +1,39 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/jquery.ud.validator.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ud.validator.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/configItem/configItem.js"></script>
+<div id="div_edit" class="div_edit">
+	<form id="editForm">
+		<input type="hidden" name="appId"  id="appId" value="$!appId" />
+	<div class="data_area">
+	#foreach($itemList in $!list)
+    <hr/>
+	<table class="tb_list">
+		<tr class="tr_header">
+          <td width="10%">名称：</td>
+          <td width="30%">
+            <div style="float:left">$!itemList.get(0).key</div>
+		  </td>
+		</tr>
+		#foreach($childItem in $!itemList)
+        <tr>
+          <td>$!{childItem.module}：</td>
+          <td class="tr_cell_left">
+			<input type="hidden" name="ids" value="$!childItem.id"/>
+			<input type="text" name="values" value="$!childItem.value" style="width:350px"/>
+		  </td>
+		</tr>
+		#end
+    </table>
+	#end
+	<table>
+	 <tr>
+          <td colspan="2" class="td_btn">
+    		<input type="button" value="保存修改" id="updateAll" class="btn btn_save" />
+    	  </td>
+    	</tr>
+    </table>			
+    </div>
+    </form>
+</div>

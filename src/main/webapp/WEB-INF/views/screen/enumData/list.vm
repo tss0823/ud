@@ -1,0 +1,37 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/enumData/enumData.js"></script>
+<form id="appForm" method="post" action="list.htm" >
+<div id="query_block" class="query_block">
+应用：<input type="text" name="appId" value="" />
+<input type="button"  value="新建" class="btn" id="enterNew"/>
+<input type="button"  value="构建java" class="btn" id="buildJava"/>
+</div>	
+</form>
+<div class="div_list">
+	<table class="tb_list">
+		 <tr class="tr_header">
+			<td><input type="checkbox" id="chkAll" /></td>
+			<td>序号</td>
+			<td>名称</td>
+			<td>描述</td>
+			<td>数据类型</td>
+			<td>操作</td>
+         </tr>
+		 #foreach($item in $!page.dataList)
+			#set($rowNum=$!{velocityCount}+$!{page.startRow})
+            <tr class="#if($!velocityCount % 2 == 0)tr_cell_alt#else tr_cell#end">
+              <td><input type="checkbox" id="chkItem" value="$!item.id"/></td>
+              <td>$!rowNum</td>
+              <td>$!item.name</td>
+              <td>$!item.description</td>
+              <td>$!item.dataType</td>
+             <td>
+			  <a href="enterEdit.htm?id=$!item.id">修改</a>|
+              <a href="javascript:remove('$!item.id','$!item.appId')">删除</a>|
+              <a href="$!{serverPath}/enumDataItem/list.htm?parentId=$!item.id">数据项</a>|
+              <a href="$!{serverPath}/enumDataItem/listDetail.htm?parentId=$!item.id">数据项详情</a>
+			  </td>
+			</tr>
+		 #end	
+    </table>
+</div>

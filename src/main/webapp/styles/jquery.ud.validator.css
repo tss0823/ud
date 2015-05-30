@@ -1,0 +1,15 @@
+.input_success {
+	background:url(../images/validator/icon-ok.png) no-repeat right center #e3ffe5;
+	color:#002f00;
+	border-color:#96b796 !important	
+}
+.input_error{
+	background: url(../images/validator/icon-fail.png) no-repeat right center #ffebef;
+	border-color:red !important	
+}
+
+.val_msg{
+	color:red;
+	padding-left:10px;
+	
+}

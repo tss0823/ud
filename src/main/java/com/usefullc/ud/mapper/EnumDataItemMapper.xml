@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="EnumDataItemMapper">  
+   
+	<resultMap type="EnumDataItem" id="enumDataItemMap">
+		<result  column="id" property="id"/>
+		<result  column="parent_id" property="parentId"/>
+		<result  column="value" property="value"/>
+		<result  column="text" property="text"/>
+		<result  column="ext_text" property="extText"/>
+		<result  column="del_state" property="delState"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null ">
+		 and  `id` = #{id}
+		</if> 
+		<if test="parentId != null ">
+		 and  `parent_id` = #{parentId}
+		</if> 
+		<if test="value != null ">
+		 and  `value` = #{value}
+		</if> 
+		<if test="text != null ">
+		 and  `text` = #{text}
+		</if> 
+		<if test="extText != null ">
+		 and  `ext_text` = #{extText}
+		</if> 
+	</sql>
+	
+	<select id="getEnumDataItem" resultMap="enumDataItemMap">
+		 select * from enum_data_item WHERE id = #{id}
+    </select>
+    
+    <insert id="insertEnumDataItem" parameterType="EnumDataItem" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into enum_data_item   
+		(
+		`parent_id`,`value`,`text`,`ext_text`,`del_state`
+		) 
+		values
+		(
+		#{ parentId},#{ value},#{ text},#{ extText},1
+		)
+    </insert>  
+    
+    <update id="updateEnumDataItem" parameterType="EnumDataItem">  
+		update enum_data_item set
+		`parent_id` = #{ parentId},`value` = #{ value},`text` = #{ text},`ext_text` = #{ extText}
+		where id = #{id}
+    </update>  
+    
+	<select id="getEnumDataItemList" resultMap="enumDataItemMap"  parameterType="Map">
+      select * from enum_data_item 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getEnumDataItemListPage" resultMap="enumDataItemMap"  parameterType="Map">
+      select * from enum_data_item 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getEnumDataItemListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from enum_data_item 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteEnumDataItem" parameterType="Long">  
+        update  enum_data_item set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+     <delete id="deleteEnumDataItemByParentId" parameterType="Long">  
+        delete from  enum_data_item where parent_id = #{id}
+     </delete>  
+
+     <!-- user definition code end -->
+</mapper> 
+
+

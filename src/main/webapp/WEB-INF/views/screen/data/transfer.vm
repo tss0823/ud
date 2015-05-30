@@ -1,0 +1,63 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.edit-1.0.0.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/jquery.ud.validator.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ud.validator.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/data/transfer.js"></script>
+<div id="div_edit" class="div_edit">
+	<form id="editForm" method="post">
+    	<table class="tb_edit">
+    		 <tr>
+    			<td class="td_label">传输项目：</td>
+    			<td class="td_text">
+				  <select name="fromProjectId" id="fromProjectId"><option value="">请选择传输项目</option></select>
+				</td>
+             </tr>
+    		 <tr>
+    			<td class="td_label">传输应用：</td>
+    			<td class="td_text">
+				  <select name="fromAppId" id="fromAppId"><option value="">请选择传输应用</option></select>
+				</td>
+             </tr>
+    		 <tr>
+    			<td class="td_label">被传输项目：</td>
+    			<td class="td_text">
+				  <select name="toProjectId" id="toProjectId"><option value="">请选择被传输项目</option></select>
+				</td>
+             </tr>
+    		 <tr>
+    			<td class="td_label">被传输应用：</td>
+    			<td class="td_text">
+				  <select name="toAppId" id="toAppId"><option value="">请选择被传输应用</option></select>
+				</td>
+             </tr>
+        </table>
+        <h3 style="margin-top:20px">传输实体</h3>
+		<table class="tb_list">
+		 <tr class="tr_header">
+			<td><input type="checkbox" id="chkAll" /></td>
+			<td>序号</td>
+			<td>英文名称</td>
+			<td>中文名称</td>
+			<td>简称</td>
+         </tr>
+		 #foreach($item in $!entityList)
+			#set($rowNum=$!{velocityCount}+$!{page.startRow})
+            <tr class="#if($!velocityCount % 2 == 0)tr_cell_alt#else tr_cell#end">
+              <td><input type="checkbox" id="chkItem" name="entityIds" value="$!item.id"/></td>
+              <td>$!rowNum</td>
+              <td>$!item.enName</td>
+              <td>$!item.cnName</td>
+              <td>$!item.shortName</td>
+              <td>$!item.appId</td>
+              <td>$!dateTool.format($!item.gmtCreate)</td>
+              <td>$!dateTool.format($!item.gmtModify)</td>
+			</tr>
+		 #end	
+    </table>
+		<table width="100%" style="margin-top:20px">
+		   <tr class="td_btn">
+              <td ><input type="button" value="保存" class="btn btn_save" id="save"/></td>
+			</tr>
+		</table>
+    </form>
+</div>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="UserMapper">  
+   
+	<resultMap type="User" id="userMap">
+		<result  column="id" property="id"/>
+		<result  column="cn_name" property="cnName"/>
+		<result  column="username" property="username"/>
+		<result  column="password" property="password"/>
+		<result  column="gmt_create" property="gmtCreate"/>
+		<result  column="gmt_modify" property="gmtModify"/>
+		<result  column="del_state" property="delState"/>
+		<result  column="role" property="role"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null ">
+		 and  `id` = #{id}
+		</if> 
+		<if test="cnName != null ">
+		 and  `cn_name` = #{cnName}
+		</if> 
+		<if test="username != null ">
+		 and  `username` = #{username}
+		</if> 
+		<if test="password != null ">
+		 and  `password` = #{password}
+		</if> 
+		<if test="gmtCreate != null ">
+		 and  `gmt_create` = #{gmtCreate}
+		</if> 
+		<if test="gmtModify != null ">
+		 and  `gmt_modify` = sysdate
+		</if> 
+		<if test="role != null ">
+		 and  `role` = #{role}
+		</if> 
+	</sql>
+	
+	<select id="getUser" resultMap="userMap">
+		 select * from user WHERE id = #{id}
+    </select>
+    
+    <insert id="insertUser" parameterType="User" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into user   
+		(
+		`cn_name`,`username`,`password`,`gmt_create`,`gmt_modify`,`del_state`,`role`
+		) 
+		values
+		(
+		#{ cnName},#{ username},#{ password},now(6),now(6),1,#{ role}
+		)
+    </insert>  
+    
+    <update id="updateUser" parameterType="User">  
+		update user set
+		`cn_name` = #{ cnName},`username` = #{ username},`password` = #{ password},`gmt_modify` = now(6)	      
+		,`role` = #{ role}
+		where id = #{id}
+    </update>  
+    
+	<select id="getUserList" resultMap="userMap"  parameterType="Map">
+      select * from user 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getUserListPage" resultMap="userMap"  parameterType="Map">
+      select * from user 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getUserListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from user 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteUser" parameterType="Long">  
+        update  user set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+     <select id="getUserByUsername" resultMap="userMap" >
+      select * from user WHERE username = #{value} and del_state = 1
+    </select>
+
+     <!-- user definition code end -->
+</mapper> 
+
+

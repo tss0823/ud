@@ -1,0 +1,14 @@
+#set($layout = 'layout/layout.vm')
+<form action="/user/save.htm" >
+	登录名：
+	<input type="text" name="loginName"  value="$domain.loginName"/>
+	<br/>>
+	用户名：
+	<input type="text" name="userName"  value="$domain.userName"/>
+	<br/>
+	密码：
+	<input type="password" name="password" />
+	<br/>
+	<input type="submit" value="提交" />
+	<br/>
+</form>

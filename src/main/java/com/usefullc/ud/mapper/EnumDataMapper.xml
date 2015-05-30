@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="EnumDataMapper">  
+   
+	<resultMap type="EnumData" id="enumDataMap">
+		<result  column="id" property="id"/>
+		<result  column="name" property="name"/>
+		<result  column="description" property="description"/>
+		<result  column="data_type" property="dataType"/>
+		<result  column="del_state" property="delState"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null ">
+		 and  `id` = #{id}
+		</if> 
+		<if test="name != null ">
+		 and  `name` = #{name}
+		</if> 
+		<if test="description != null ">
+		 and  `description` = #{description}
+		</if> 
+		<if test="dataType != null ">
+		 and  `data_type` = #{dataType}
+		</if> 
+	</sql>
+	
+	<select id="getEnumData" resultMap="enumDataMap">
+		 select * from enum_data WHERE id = #{id}
+    </select>
+    
+    <insert id="insertEnumData" parameterType="EnumData" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into enum_data   
+		(
+		`name`,`description`,`data_type`,`del_state`
+		) 
+		values
+		(
+		#{ name},#{ description},#{ dataType},1
+		)
+    </insert>  
+    
+    <update id="updateEnumData" parameterType="EnumData">  
+		update enum_data set
+		`name` = #{ name},`description` = #{ description},`data_type` = #{ dataType}
+		where id = #{id}
+    </update>  
+    
+	<select id="getEnumDataList" resultMap="enumDataMap"  parameterType="Map">
+      select * from enum_data 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getEnumDataListPage" resultMap="enumDataMap"  parameterType="Map">
+      select * from enum_data 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getEnumDataListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from enum_data 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteEnumData" parameterType="Long">  
+        update  enum_data set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+
+     <!-- user definition code end -->
+</mapper> 
+
+

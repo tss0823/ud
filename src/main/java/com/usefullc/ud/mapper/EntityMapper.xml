@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="EntityMapper">  
+   
+	<resultMap type="Entity" id="entityMap">
+		<result  column="id" property="id"/>
+		<result  column="app_id" property="appId"/>
+		<result  column="cn_name" property="cnName"/>
+		<result  column="en_name" property="enName"/>
+		<result  column="project_id" property="projectId"/>
+		<result  column="gmt_create" property="gmtCreate"/>
+		<result  column="gmt_modify" property="gmtModify"/>
+		<result  column="del_state" property="delState"/>
+		<result  column="ver" property="ver"/>
+		<result  column="short_name" property="shortName"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null and id != ''">
+		 and  `id` = #{id}
+		</if> 
+		<if test="appId != null and appId != ''">
+		 and  `app_id` = #{appId}
+		</if> 
+		<if test="cnName != null and cnName != ''">
+		 and  `cn_name` = #{cnName}
+		</if> 
+		<if test="enName != null and enName != ''">
+		 and  `en_name` = #{enName}
+		</if> 
+		<if test="cnNameLike != null and cnNameLike != ''">
+		 and  `cn_name` like concat(#{cnNameLike},'%')
+		</if> 
+		<if test="enNameLike != null and enNameLike != ''">
+		 and  `en_name` like concat(#{enNameLike},'%')
+		</if> 
+		<if test="projectId != null and projectId != ''">
+		 and  `project_id` = #{projectId}
+		</if> 
+		<if test="gmtCreate != null and gmtCreate != ''">
+		 and  `gmt_create` = #{gmtCreate}
+		</if> 
+		<if test="gmtModify != null and gmtModify != ''">
+		 and  `gmt_modify` = sysdate
+		</if> 
+		<if test="ver != null and ver != ''">
+		 and  `ver` = #{ver}
+		</if> 
+		<if test="shortName != null and shortName != ''">
+		 and  `short_name` = #{shortName}
+		</if> 
+	</sql>
+	
+	<select id="getEntity" resultMap="entityMap">
+		 select * from entity WHERE id = #{id}
+    </select>
+    
+    <insert id="insertEntity" parameterType="Entity" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into entity   
+		(
+		`app_id`,`cn_name`,`en_name`,`project_id`,`gmt_create`,`gmt_modify`,`del_state`,`ver`,	      
+		`short_name`
+		) 
+		values
+		(
+		#{ appId},#{ cnName},#{ enName},#{ projectId},now(6),now(6),1,#{ ver},	      
+		#{ shortName}
+		)
+    </insert>  
+    
+    <update id="updateEntity" parameterType="Entity">  
+		update entity set
+		`app_id` = #{ appId},`cn_name` = #{ cnName},`en_name` = #{ enName},`project_id` = #{ projectId}	      
+		,`gmt_modify` = now(6),`ver` = #{ ver},`short_name` = #{ shortName}
+		where id = #{id}
+    </update>  
+    
+	<select id="getEntityList" resultMap="entityMap"  parameterType="Map">
+      select * from entity 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getEntityListPage" resultMap="entityMap"  parameterType="Map">
+      select * from entity 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getEntityListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from entity 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteEntity" parameterType="Long">  
+        update  entity set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+	 <select id="getEntityListByAppId" resultMap="entityMap"  parameterType="Long">
+      select * from entity where del_state = 1 and app_id = #{id}
+    </select>
+     
+	<select id="getEntityListByIds" resultMap="entityMap"  >
+      select * from entity where del_state = 1 and id in
+      	<foreach item="item" index="index" collection="array" 
+    	  open="(" separator="," close=")">
+        		#{item}
+ 		 </foreach>
+    </select>
+    
+     <update id="deleteEntityByAppId" parameterType="Long">  
+        update  entity set del_state = 0  where app_id = #{id}
+     </update>
+     
+     <update id="deleteEntityByIds"  >
+      update entity set del_state = 0 where id in
+      	<foreach item="item" index="index" collection="array" 
+    	  open="(" separator="," close=")">
+        		#{item}
+ 		 </foreach>
+    </update>  
+    
+    <insert id="insertEntityBatch" >
+		insert into entity   
+		(
+		`app_id`,`cn_name`,`en_name`,`project_id`,`gmt_create`,`gmt_modify`,`del_state`,`ver`,	      
+		`short_name`
+		) 
+		values
+		<foreach collection="list" item="item" index="index" separator=",">		
+		(
+		#{ item.appId},#{ item.cnName},#{ item.enName},#{ item.projectId},now(6),now(6),1,#{ item.ver},	      
+		#{ item.shortName}
+		)
+		</foreach>
+	</insert>
+
+     <!-- user definition code end -->
+</mapper> 
+
+

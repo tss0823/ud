@@ -1,0 +1,43 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/jquery.ud.validator.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ud.validator.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/table.comp.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/enumDataItem/enumDataItem.js"></script>
+<form id="queryForm" method="post" action="save.htm" >
+<input type="hidden" name="parentId" value="$!parentId" />	
+<div id="query_block" class="query_block">
+   <input type="submit" value="保存" class="btn"/>
+   <input type="button" id="addItem" value="添加" class="btn"/>
+</div>
+<div class="div_list">
+	<table class="tb_list" id="tbList">
+		 <tr class="tr_header">
+			<td>值</td>
+			<td>文本</td>
+			<td>扩展文本</td>
+			<td>操作</td>
+         </tr>
+		 #foreach($item in $!list)
+            <tr>
+              <td><input type="text" name="value" value="$!item.value" style="width:100%" /></td>
+              <td><input type="text" name="text" value="$!item.text" style="width:100%" /></td>
+              <td><input type="text" name="extText" value="$!item.extText" style="width:100%" /></td>
+             <td>
+             	<input type="button" id="delItem" data-id="$!item.id" value="删除" class="btn"/>
+			  </td>
+			</tr>
+		 #end	
+		 <tr id="fixItem">
+                <td><input type="text" name="value"  style="width:100%" /></td>
+              <td><input type="text" name="text"  style="width:100%" /></td>
+              <td><input type="text" name="extText"  style="width:100%" /></td>
+             <td>
+             	<input type="button" id="delItem" value="删除" class="btn"/>
+			  </td>
+			</tr>
+    </table>
+    <div>
+      总共：$!list.size() 条记录	
+    </div>
+</div>
+</form>

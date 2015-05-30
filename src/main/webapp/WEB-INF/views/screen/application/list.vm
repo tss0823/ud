@@ -1,0 +1,67 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/pop_menu.comp.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/application/application.js"></script>
+<div class="rightListDiv">
+	<div class="fun_area">
+        <div class="fun_area_left">
+		<input type="file" name="sqlFile" id="sqlFile" />
+	#if($!query.projectId)		
+	<input type="button"  id="enterNew" class="btn btn_enterNew" value="新建" param-id="$!query.projectId" param-id-prop="projectId" param-title="新建应用"/>
+	#end
+	</div>
+    <div class="fun_area_right">
+	#parse("/common/page.vm")
+	</div>
+	</div>
+	<table class="tb_list">
+		 <tr class="tr_header">
+			<td width="3%">序号</td>
+			<td width="6%">英文名称</td>
+			<td width="10%">中文名称</td>
+			<td width="5%">简称</td>
+			<td width="12%">模板名称</td>
+			<td width="4%">版本</td>
+			<td width="6%">基本操作</td>
+			<td width="6%">文件操作</td>
+			<td width="4%">流操作</td>
+         </tr>
+		 #foreach($item in $!page.dataList)
+			#set($rowNum=$!{velocityCount}+$!{page.startRow})
+            <tr class="#if($!velocityCount % 2 == 0)tr_cell_alt#else tr_cell#end">
+              <td>$!rowNum</td>
+              <td class="tr_cell_left">$!item.enName</td>
+              <td class="tr_cell_left">$!item.cnName</td>
+              <td>$!item.shortName</td>
+              <td class="tr_cell_left">$!item.templateName</td>
+              <td>$!item.ver</td>
+             <td>
+			  #set($upgradeParam={"upgrade":{"param-id":"$!item.id","text":"升级"}})
+			  #set($updateParam={"enterEdit":{"param-id":"$!item.id","param-title":"应用修改","text":"修改"}})
+			  #set($removeParam={"remove":{"param-id":"$!item.id","text":"删除"}})
+			  #set($entityParam={"entityList":{"param-id":"$!item.id","param-title":"实体项","text":"实体项"}})
+			  #set($confirmItemParam={"configItemList":{"param-id":"$!item.id","param-title":"配置项","text":"配置项"}})
+			  #popMenu($!upgradeParam,$!updateParam,$!removeParam,$!entityParam,$!confirmItemParam)
+			  </td>
+			  <td>
+			  #set($param1={"buildSql":{"param-id":"$!item.id","text":"构建SQL"}})
+			  #set($param2={"buildApp":{"param-id":"$!item.id","text":"构建工程"}})
+			  #set($param3={"uploadSql":{"param-id":"$!item.id","text":"上传SQL"}})
+			  #set($param4={"getInsertSql":{"param-id":"$!item.id","text":"获得插入SQL"}})
+			  #popMenu($!param1,$!param2,$!param3,$!param4)
+			  </td>
+			  <td>
+			  #set($param1={"a_1":{"url":"$!{serverPath}/configItem/printConfig/$!{item.id}_dev.htm","text":"开发","target":"_blank"}})
+			  #set($param2={"a_2":{"url":"$!{serverPath}/configItem/printConfig/$!{item.id}_debug.htm","text":"调试","target":"_blank"}})
+			  #set($param3={"a_3":{"url":"$!{serverPath}/configItem/printConfig/$!{item.id}_test.htm","text":"测试","target":"_blank"}})
+			  #set($param4={"a_4":{"url":"$!{serverPath}/configItem/printConfig/$!{item.id}_true.htm","text":"线上","target":"_blank"}})
+			  #popMenu($!param1,$!param2,$!param3,$!param4)
+			  </td>
+			</tr>
+		 #end	
+    </table>
+<div class="fun_area_right">
+#parse("/common/page.vm")
+</div>
+</div>

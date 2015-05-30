@@ -1,0 +1,50 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/template/template.js"></script>
+<form id="downloadForm" method="post" action="download.htm">
+ <input type="hidden" id="id" name="id"/>
+</form>
+<div class="rightListDiv">
+	<div class="fun_area">
+        <div class="fun_area_left">
+		   <input type="button" id="enterNew" value="新建" class="btn btn_normal"  param-title="新建模版"/>
+           <input type="button" id="copy" value="复制" class="btn btn_normal"/>
+           <input type="button" id="deleteAll" value="删除" class="btn btn_normal"/>
+	</div>
+    <div class="fun_area_right">
+	#parse("/common/page.vm")
+	</div>
+	</div>
+	<table class="tb_list">
+		 <tr class="tr_header">
+			<td><input type="checkbox" id="chkAll" /></td>
+			<td>序号</td>
+			<td>模版名称</td>
+			<td>类型</td>
+			<td>路径</td>
+			<td>创建时间</td>
+			<td>修改时间</td>
+			<td>操作</td>
+         </tr>
+		 #foreach($item in $!page.dataList)
+			#set($rowNum=$!{velocityCount}+$!{page.startRow})
+            <tr class="#if($!velocityCount % 2 == 0)tr_cell_alt#else tr_cell#end">
+              <td><input type="checkbox" id="chkItem" value="$!item.id"/></td>
+              <td>$!rowNum</td>
+              <td>$!item.name</td>
+              <td>$!item.type</td>
+              <td>$!item.path</td>
+              <td>$!dateTool.format($!item.gmtCreate)</td>
+              <td>$!dateTool.format($!item.gmtModify)</td>
+             <td>
+			  <a id="enterEdit" param-id="$!item.id" param-title="<font color=red>[$!{item.name}]</font>模版修改">修改</a>|
+			  <a id="download" param-id="$!item.id" >下载</a>
+			  <a id="remove" param-id="$!item.id">删除</a>
+			  </td>
+			</tr>
+		 #end	
+    </table>
+<div class="fun_area_right">
+#parse("/common/page.vm")
+</div>
+</div>

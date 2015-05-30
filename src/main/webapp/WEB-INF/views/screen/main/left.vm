@@ -1,0 +1,36 @@
+#set($layout = "/layout/frameLayout.vm")
+<div id="bgLeft">
+<div id="mainLeft">
+<div id="menuTop"></div>
+<div id="mainMenu">
+<h2 id="secondMenu" class="secondMenuUp" st="close" data="m_3">项目管理</h2>
+<ul id="menu" parent-data="m_3" style="display:block">
+<li id="leafMenu" class=""><a href="$!{serverPath}/project/list.htm" target="frameRight">项目管理</a></li>
+</ul>
+<h2 id="secondMenu" class="secondMenuDown" st="close" data="m_6">应用管理</h2>
+<ul id="menu" parent-data="m_6" style="display:none">
+<li id="leafMenu" class=""><a href="$!{serverPath}/application/listTree.htm" target="frameRight">应用管理</a></li>
+<li id="leafMenu" class=""><a href="$!{serverPath}/entity/listTree.htm" target="frameRight">实体管理</a></li>
+<li id="leafMenu" class=""><a href="$!{serverPath}/property/listTree.htm" target="frameRight">属性管理</a></li>
+</ul>
+<h2 id="secondMenu" class="secondMenuDown" st="close" data="m_7">校验管理</h2>
+<ul id="menu" parent-data="m_7" style="display:none">
+<li id="leafMenu" class=""><a href="$!{serverPath}/validRule/list.htm" target="frameRight">规则管理</a></li>
+<li id="leafMenu" class=""><a href="$!{serverPath}/valid/listTree.htm" target="frameRight">校验管理</a></li>
+<li id="leafMenu" class=""><a href="$!{serverPath}/validItem/listTree.htm" target="frameRight">校验构建</a></li>
+</ul>
+<h2 id="secondMenu" class="secondMenuDown" st="close" data="m_8">文件管理</h2>
+<ul id="menu" parent-data="m_8" style="display:none">
+<li id="leafMenu" class=""><a href="$!{serverPath}/template/list.htm" target="frameRight">模版管理</a></li>
+<li id="leafMenu" class=""><a href="$!{serverPath}/genFile/listTree.htm" target="frameRight">生成文件管理</a></li>
+</ul>
+<h2 id="secondMenu" class="secondMenuDown" st="close" data="m_9">系统管理</h2>
+<ul id="menu" parent-data="m_9" style="display:none">
+<li id="leafMenu" class=""><a href="$!{serverPath}/enumData/list.htm" target="frameRight">枚举数据</a></li>
+<li id="leafMenu" class=""><a href="$!{serverPath}/dbConfigure/list.htm" target="frameRight">数据库配置</a></li>
+<li id="leafMenu" class=""><a href="$!{serverPath}/data/transfer.htm" target="frameRight">数据传输</a></li>
+</ul>
+</div>
+</div>
+</div>
+	

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="ValidItemMapper">  
+   
+	<resultMap type="ValidItem" id="validItemMap">
+		<result  column="id" property="id"/>
+		<result  column="gmt_create" property="gmtCreate"/>
+		<result  column="gmt_modify" property="gmtModify"/>
+		<result  column="del_state" property="delState"/>
+		<result  column="entity_id" property="entityId"/>
+		<result  column="en_name" property="enName"/>
+		<result  column="cn_name" property="cnName"/>
+		<result  column="app_id" property="appId"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null and id != ''">
+		 and  `id` = #{id}
+		</if> 
+		<if test="gmtCreate != null and gmtCreate != ''">
+		 and  `gmt_create` = #{gmtCreate}
+		</if> 
+		<if test="gmtModify != null and gmtModify != ''">
+		 and  `gmt_modify` = sysdate
+		</if> 
+		<if test="entityId != null and entityId != ''">
+		 and  `entity_id` = #{entityId}
+		</if> 
+		<if test="enName != null and enName != ''">
+		 and  `en_name` = #{enName}
+		</if> 
+		<if test="cnName != null and cnName != ''">
+		 and  `cn_name` = #{cnName}
+		</if> 
+		<if test="appId != null and appId != ''">
+		 and  `app_id` = #{appId}
+		</if> 
+	</sql>
+	
+	<select id="getValidItem" resultMap="validItemMap">
+		 select * from valid_item WHERE id = #{id}
+    </select>
+    
+    <insert id="insertValidItem" parameterType="ValidItem" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into valid_item   
+		(
+		`gmt_create`,`gmt_modify`,`del_state`,`entity_id`,`en_name`,`cn_name`,`app_id`
+		) 
+		values
+		(
+		now(6),now(6),1,#{ entityId},#{ enName},#{ cnName},#{ appId}
+		)
+    </insert>  
+    
+    <update id="updateValidItem" parameterType="ValidItem">  
+		update valid_item set
+		`gmt_modify` = now(6),`entity_id` = #{ entityId},`en_name` = #{ enName},`cn_name` = #{ cnName}	      
+		,`app_id` = #{ appId}
+		where id = #{id}
+    </update>  
+    
+	<select id="getValidItemList" resultMap="validItemMap"  parameterType="Map">
+      select * from valid_item 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getValidItemListPage" resultMap="validItemMap"  parameterType="Map">
+      select * from valid_item 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getValidItemListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from valid_item 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteValidItem" parameterType="Long">  
+        update  valid_item set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+	 	<select id="getValidItemListByAppId" resultMap="validItemMap"  >
+   	   select * from valid_item where del_state = 1 and app_id = #appId#
+    	</select>
+    	
+	 	<select id="getValidItemListByIds" resultMap="validItemMap"  >
+      select * from valid_item where del_state = 1 and id in
+      	<foreach item="item" index="index" collection="array" 
+    	  open="(" separator="," close=")">
+        		#{item}
+ 		 </foreach>
+    </select>
+     <!-- user definition code end -->
+</mapper> 
+
+

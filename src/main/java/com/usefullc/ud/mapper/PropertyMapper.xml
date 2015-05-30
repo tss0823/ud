@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="PropertyMapper">  
+   
+	<resultMap type="Property" id="propertyMap">
+		<result  column="id" property="id"/>
+		<result  column="cn_name" property="cnName"/>
+		<result  column="en_name" property="enName"/>
+		<result  column="entity_id" property="entityId"/>
+		<result  column="gmt_create" property="gmtCreate"/>
+		<result  column="gmt_modify" property="gmtModify"/>
+		<result  column="del_state" property="delState"/>
+		<result  column="data_type" property="dataType"/>
+		<result  column="length" property="length"/>
+		<result  column="primary_key" property="primaryKey"/>
+		<result  column="default_value" property="defaultValue"/>
+		<result  column="is_null" property="isNull"/>
+		<result  column="order" property="order"/>
+		<result  column="source_type" property="sourceType"/>
+		<result  column="source" property="source"/>
+		<result  column="remark" property="remark"/>
+		<result  column="check_group" property="checkGroup"/>
+		<result  column="ver" property="ver"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null ">
+		 and  `id` = #{id}
+		</if> 
+		<if test="cnName != null ">
+		 and  `cn_name` = #{cnName}
+		</if> 
+		<if test="enName != null ">
+		 and  `en_name` = #{enName}
+		</if> 
+		<if test="entityId != null ">
+		 and  `entity_id` = #{entityId}
+		</if> 
+		<if test="gmtCreate != null ">
+		 and  `gmt_create` = #{gmtCreate}
+		</if> 
+		<if test="gmtModify != null ">
+		 and  `gmt_modify` = sysdate
+		</if> 
+		<if test="dataType != null ">
+		 and  `data_type` = #{dataType}
+		</if> 
+		<if test="length != null ">
+		 and  `length` = #{length}
+		</if> 
+		<if test="primaryKey != null ">
+		 and  `primary_key` = #{primaryKey}
+		</if> 
+		<if test="defaultValue != null ">
+		 and  `default_value` = #{defaultValue}
+		</if> 
+		<if test="isNull != null ">
+		 and  `is_null` = #{isNull}
+		</if> 
+		<if test="order != null ">
+		 and  `order` = #{order}
+		</if> 
+		<if test="sourceType != null ">
+		 and  `source_type` = #{sourceType}
+		</if> 
+		<if test="source != null ">
+		 and  `source` = #{source}
+		</if> 
+		<if test="remark != null ">
+		 and  `remark` = #{remark}
+		</if> 
+		<if test="checkGroup != null ">
+		 and  `check_group` = #{checkGroup}
+		</if> 
+		<if test="ver != null ">
+		 and  `ver` = #{ver}
+		</if> 
+	</sql>
+	
+	<select id="getProperty" resultMap="propertyMap">
+		 select * from property WHERE id = #{id}
+    </select>
+    
+    <insert id="insertProperty" parameterType="Property" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into property   
+		(
+		`cn_name`,`en_name`,`entity_id`,`gmt_create`,`gmt_modify`,`del_state`,`data_type`,`length`,	      
+		`primary_key`,`default_value`,`is_null`,`order`,`source_type`,`source`,`remark`,`check_group`,	      
+		`ver`
+		) 
+		values
+		(
+		#{ cnName},#{ enName},#{ entityId},now(6),now(6),1,#{ dataType},#{ length},	      
+		#{ primaryKey},#{ defaultValue},#{ isNull},#{ order},#{ sourceType},#{ source},#{ remark},#{ checkGroup},	      
+		#{ ver}
+		)
+    </insert>  
+    
+    <update id="updateProperty" parameterType="Property">  
+		update property set
+		`cn_name` = #{ cnName},`en_name` = #{ enName},`entity_id` = #{ entityId},`gmt_modify` = now(6)	      
+		,`data_type` = #{ dataType},`length` = #{ length},`primary_key` = #{ primaryKey},`default_value` = #{ defaultValue}	      
+		,`is_null` = #{ isNull},`order` = #{ order},`source_type` = #{ sourceType},`source` = #{ source}	      
+		,`remark` = #{ remark},`check_group` = #{ checkGroup},`ver` = #{ ver}
+		where id = #{id}
+    </update>  
+    
+	<select id="getPropertyList" resultMap="propertyMap"  parameterType="Map">
+      select * from property 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getPropertyListPage" resultMap="propertyMap"  parameterType="Map">
+      select * from property 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getPropertyListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from property 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteProperty" parameterType="Long">  
+        update  property set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+     <update id="deletePropertyByEntityId" parameterType="Long">  
+        update  property set del_state = 0  where entity_id = #{id}
+     </update>  
+     
+     <update id="deletePropertyByAppId" parameterType="Long">  
+       update  property t1,entity t2 set  t1.del_state = 0  where t1.entity_id = t2.id and t2.app_id = #{id}
+     </update>  
+    
+	<select id="getPropertyListByEntityId" resultMap="propertyMap"  parameterType="Long">
+      select * from property  where del_state = 1 and entity_id = #{id}
+    </select>
+    
+     <update id="deleteEntityListByEntityIds"   >
+      update property set del_state = 0 where entity_id in
+      	<foreach item="item" index="index" collection="array" 
+    	  open="(" separator="," close=")">
+        		#{item}
+ 		 </foreach>
+    </update>  
+    
+     <insert id="insertPropertyBatch" >
+		insert into property   
+		(
+		`cn_name`,`en_name`,`entity_id`,`gmt_create`,`gmt_modify`,`del_state`,`data_type`,`length`,	      
+		`primary_key`,`default_value`,`is_null`,`order`,`source_type`,`source`,`remark`,`check_group`,	      
+		`ver`
+		) 
+		values
+		<foreach collection="list" item="item" index="index" separator=",">	
+		(
+		#{item.cnName},#{ item.enName},#{ item.entityId},now(6),now(6),1,#{ item.dataType},#{ item.length},	      
+		#{ item.primaryKey},#{ item.defaultValue},#{ item.isNull},#{ item.order},#{ item.sourceType},#{ item.source},#{ item.remark},#{ item.checkGroup},	      
+		#{ item.ver}
+		)	
+		</foreach>
+	</insert>
+	
+	 <update id="batchDeleteProperty"   >
+      delete from property where id in
+      	<foreach item="item" index="index" collection="array" 
+    	  open="(" separator="," close=")">
+        		#{item}
+ 		 </foreach>
+    </update> 
+
+     <!-- user definition code end -->
+</mapper> 
+
+

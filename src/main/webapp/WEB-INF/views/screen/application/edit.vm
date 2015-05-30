@@ -1,0 +1,47 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.edit-1.0.0.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/jquery.ud.validator.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ud.validator.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/application/application.js"></script>
+<div id="div_edit" class="div_edit">
+	<form id="editForm">
+		<input type="hidden" id="id" name="id" value="$domain.id" />
+    	<table class="tb_edit">
+    		 <tr>
+    			<td class="td_label">英文名称：</td>
+    			<td class="td_text"><input type="text" name="enName" id="enName" value="$!domain.enName" /><span class="val_msg"></span></td>
+    			<td class="td_label">中文名称：</td>
+    			<td class="td_text"><input type="text" name="cnName" id="cnName" value="$!domain.cnName" /><span class="val_msg"></span></td>
+             </tr>
+			 <tr>
+    			<td class="td_label">类型：</td>
+    			<td class="td_text">
+					<select id="dbId" name="dbId">
+					  #foreach($item in $!dbConfList)
+						<option value="$!item.id" #if($!domain.dbId == $!item.id)selected="true"#end>$!{item.name}</option>
+					  #end	
+					</select>
+				</td>
+				<td class="td_label">简称：</td>
+    			<td class="td_text"><input type="text" name="shortName" id="shortName" value="$!domain.shortName"/><span class="val_msg"></span></td>
+             </tr>
+    		  <tr>
+    			<td class="td_label">模板路径：</td>
+    			<td colspan="3" class="td_text">
+					<input type="hidden" name="templateId" id="templateId" value="$!domain.templateId"/>
+					<input type="text"  id="templateName" value="$!domain.templateName" style="width:300px" />
+					<input type="button" id="select" value="选择" class="btn btn_normal">
+				</td>
+             </tr>
+    		 <tr>   
+    			<td class="td_label">包名：</td>
+    			<td colspan="3" class="td_text"><input type="text" name="packageName" id="packageName" value="$!domain.packageName"   style="width:400px" /><span class="val_msg"></span></td>
+             </tr>
+        </table>
+		<table width="100%" style="margin-top:20px">
+		   <tr class="td_btn">
+              <td ><input type="button" value="保存修改" class="btn btn_update" id="update"/></td>
+			</tr>
+		</table>
+    </form>
+</div>

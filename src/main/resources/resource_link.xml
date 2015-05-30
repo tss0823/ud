@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource>
+   <link value="/frame.htm" role="admin_role" />
+   <link value="index.htm" role="admin_role" />
+   <links value="user" role="admin_role">
+      <link value="list.htm" />
+      <link value="enterNew.htm" role="admin_role"/>
+      <link value="enterEdit.htm" />
+      <link value="enterView.htm" />
+      <link value="save.htm" />
+      <link value="update.htm" />
+      <link value="delete.htm" />
+   </links>
+   <links value="project" role="admin_role">
+      <link value="list.htm" />
+      <link value="enterNew.htm"/>
+      <link value="enterEdit.htm" />
+      <link value="enterView.htm" />
+      <link value="save.htm" />
+      <link value="update.htm" />
+      <link value="delete.htm" />
+   </links>
+   <links value="application" role="admin_role">
+      <link value="list.htm" />
+      <link value="enterNew.htm"/>
+      <link value="enterEdit.htm" />
+      <link value="enterView.htm" />
+      <link value="save.htm" />
+      <link value="update.htm" />
+      <link value="delete.htm" />
+      <link value="buildSql.html" />
+      <link value="buildApp.html" />
+      <link value="uploadSql.html" />
+   </links>
+   <links value="configItem" role="admin_role">
+      <link value="list.htm" />
+      <link value="enterNew.htm"/>
+      <link value="enterEdit.htm" />
+      <link value="enterView.htm" />
+      <link value="save.htm" />
+      <link value="update.htm" />
+      <link value="delete.htm" />
+      <link value="uploadProp.html" />
+   </links>
+   <links value="entity" role="admin_role">
+      <link value="list.htm" />
+      <link value="enterNew.htm"/>
+      <link value="enterEdit.htm" />
+      <link value="enterView.htm" />
+      <link value="save.htm" />
+      <link value="update.htm" />
+      <link value="delete.htm" />
+      <link value="uploadProp.html" />
+   </links>
+   <links value="property" role="admin_role">
+      <link value="list.htm" />
+      <link value="enterNew.htm"/>
+      <link value="enterEdit.htm" />
+      <link value="enterView.htm" />
+      <link value="save.htm" />
+      <link value="update.htm" />
+      <link value="delete.htm" />
+      <link value="uploadProp.html" />
+   </links>
+</resource>

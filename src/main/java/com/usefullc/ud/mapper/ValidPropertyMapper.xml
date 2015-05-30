@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="ValidPropertyMapper">  
+   
+	<resultMap type="ValidProperty" id="validPropertyMap">
+		<result  column="id" property="id"/>
+		<result  column="gmt_create" property="gmtCreate"/>
+		<result  column="gmt_modify" property="gmtModify"/>
+		<result  column="del_state" property="delState"/>
+		<result  column="cn_name" property="cnName"/>
+		<result  column="en_name" property="enName"/>
+		<result  column="is_null" property="isNull"/>
+		<result  column="rule_id" property="ruleId"/>
+		<result  column="rule_param" property="ruleParam"/>
+		<result  column="msg_for_null" property="msgForNull"/>
+		<result  column="msg_for_len" property="msgForLen"/>
+		<result  column="msg_for_rule" property="msgForRule"/>
+		<result  column="data_type" property="dataType"/>
+		<result  column="length" property="length"/>
+		<result  column="entity_id" property="entityId"/>
+		<result  column="property_id" property="propertyId"/>
+		<result  column="msg_name" property="msgName"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null and id != ''">
+		 and  `id` = #{id}
+		</if> 
+		<if test="gmtCreate != null and gmtCreate != ''">
+		 and  `gmt_create` = #{gmtCreate}
+		</if> 
+		<if test="gmtModify != null and gmtModify != ''">
+		 and  `gmt_modify` = sysdate
+		</if> 
+		<if test="cnName != null and cnName != ''">
+		 and  `cn_name` = #{cnName}
+		</if> 
+		<if test="enName != null and enName != ''">
+		 and  `en_name` = #{enName}
+		</if> 
+		<if test="isNull != null and isNull != ''">
+		 and  `is_null` = #{isNull}
+		</if> 
+		<if test="ruleId != null and ruleId != ''">
+		 and  `rule_id` = #{ruleId}
+		</if> 
+		<if test="ruleParam != null and ruleParam != ''">
+		 and  `rule_param` = #{ruleParam}
+		</if> 
+		<if test="msgForNull != null and msgForNull != ''">
+		 and  `msg_for_null` = #{msgForNull}
+		</if> 
+		<if test="msgForLen != null and msgForLen != ''">
+		 and  `msg_for_len` = #{msgForLen}
+		</if> 
+		<if test="msgForRule != null and msgForRule != ''">
+		 and  `msg_for_rule` = #{msgForRule}
+		</if> 
+		<if test="dataType != null and dataType != ''">
+		 and  `data_type` = #{dataType}
+		</if> 
+		<if test="length != null and length != ''">
+		 and  `length` = #{length}
+		</if> 
+		<if test="entityId != null and entityId != ''">
+		 and  `entity_id` = #{entityId}
+		</if> 
+		<if test="propertyId != null and propertyId != ''">
+		 and  `property_id` = #{propertyId}
+		</if> 
+		<if test="msgName != null and msgName != ''">
+		 and  `msg_name` = #{msgName}
+		</if> 
+	</sql>
+	
+	<select id="getValidProperty" resultMap="validPropertyMap">
+		 select * from valid_property WHERE id = #{id}
+    </select>
+    
+    <insert id="insertValidProperty" parameterType="ValidProperty" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into valid_property   
+		(
+		`gmt_create`,`gmt_modify`,`del_state`,`cn_name`,`en_name`,`is_null`,`rule_id`,`rule_param`,	      
+		`msg_for_null`,`msg_for_len`,`msg_for_rule`,`data_type`,`length`,`entity_id`,`property_id`,`msg_name`
+		) 
+		values
+		(
+		now(6),now(6),1,#{ cnName},#{ enName},#{ isNull},#{ ruleId},#{ ruleParam},	      
+		#{ msgForNull},#{ msgForLen},#{ msgForRule},#{ dataType},#{ length},#{ entityId},#{ propertyId},#{ msgName}
+		)
+    </insert>  
+    
+    <update id="updateValidProperty" parameterType="ValidProperty">  
+		update valid_property set
+		`gmt_modify` = now(6),`cn_name` = #{ cnName},`en_name` = #{ enName},`is_null` = #{ isNull}	      
+		,`rule_id` = #{ ruleId},`rule_param` = #{ ruleParam},`msg_for_null` = #{ msgForNull},`msg_for_len` = #{ msgForLen}	      
+		,`msg_for_rule` = #{ msgForRule},`data_type` = #{ dataType},`length` = #{ length},`entity_id` = #{ entityId}	      
+		,`property_id` = #{ propertyId},`msg_name` = #{ msgName}
+		where id = #{id}
+    </update>  
+    
+	<select id="getValidPropertyList" resultMap="validPropertyMap"  parameterType="Map">
+      select * from valid_property 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getValidPropertyListPage" resultMap="validPropertyMap"  parameterType="Map">
+      select * from valid_property 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getValidPropertyListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from valid_property 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteValidProperty" parameterType="Long">  
+        update  valid_property set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+      <delete id="deleteValidPropertyByEntityId" parameterType="Long">  
+        delete from  valid_property where entity_id = #{id}
+     </delete>  
+    
+	<select id="getValidPropertyListByEntityId" resultMap="validPropertyMap"  parameterType="Long">
+      select * from valid_property  where del_state = 1 and entity_id = #{id}
+    </select>
+    
+	<select id="getValidPropertyListByValidItemId" resultMap="validPropertyMap"  parameterType="Long">
+      select t3.* from valid_item_property t1,valid_item t2,valid_property t3 where t1.valid_item_id = t2.id 
+	  and t1.valid_property_id = t3.id  and t2.del_state = 1 and t3.del_state = 1 and t1.valid_item_id = #{validItemId}
+    </select>
+     <!-- user definition code end -->
+</mapper> 
+
+

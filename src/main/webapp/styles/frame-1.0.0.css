@@ -1,0 +1,178 @@
+/*********** top frame start ***********************************************************************/
+#topTitle {
+	position: relative;
+	height: 29px;
+	background-color: #329eef;
+}
+
+.topMiddleMenu {
+	position: absolute;
+	height: 62px;
+	top:30px;
+	left:120px;
+	z-index: 999;
+}
+.topMiddleMenu li {
+	margin:0 auto;
+	line-height:62px;
+	list-style-type:none;
+	list-style-image:none;
+	text-align:center;
+	cursor:pointer;
+	float:left;
+}
+
+
+.topMiddleMenu li div {
+	background-repeat: no-repeat;
+	display:block;
+	height:62px;
+	width:132px;		
+}
+.topMiddleMenu li div span {
+	position:relative;
+	display:block;
+	line-height:22px;
+	height:22px;
+	width:132px;
+	padding-top:36px;
+	color: #fff;
+	vertical-align:bottom;
+	font-size: 14px;
+}
+
+
+
+
+.topMenu {
+	position: absolute;
+	height: 22px;
+	top:0px;
+	right:10px;
+	z-index: 999;
+}
+.topMenu li {
+	margin:0 auto;
+	line-height:22px;
+	list-style-type:none;
+	list-style-image:none;
+	text-align:center;
+	float:left;
+}
+
+.topMenu li .userInfo{
+	height:22px;
+	width:79px;
+	margin-right:10px;
+	text-align: center;
+	color:white;
+}
+.topMenu li .updatePwd {
+	display:block;
+	height:19px;
+	width:29px;
+	margin-left:10px;
+	background: #62A1DC url("../images/frame/v1/btn_top_pwd.png")
+		no-repeat;
+}
+.topMenu li .logout {
+	display:block;
+	height:19px;
+	width:29px;
+	margin-left:10px;
+	background: #62A1DC url("../images/frame/v1/btn_top_exit.png")
+		no-repeat;
+}
+#topMain {
+	position: relative;
+	height: 89px;
+	background-color: transparent;
+}
+
+#topMain #topLogo{
+	position: relative;
+	height: 60px;
+	background: #fff url("../images/frame/v1/top_logo.png")
+		no-repeat;
+	background-color: transparent;
+}
+#topSwitch {
+	position: relative;
+	height: 4px;
+	background: #fff url("../images/frame/v1/bg_top_switch.png")
+		repeat-x;
+	background-color: transparent;
+}
+/*********** top frame end ***********************************************************************/
+
+
+
+/*********** left frame start ***********************************************************************/
+#bgLeft{
+	position: relative;
+	width: 130px;
+	height:100%;
+	background: #333 url("../images/frame/v1/bg_main_menu.png")
+		repeat-y;
+	background-color: transparent;
+	
+}
+
+#mainLeft{
+	width:129px;
+}
+
+#mainLeft #menuTop{
+	position: relative;
+	height:29px;
+	background: #333 url("../images/frame/v1/menu_top.png")
+		no-repeat;
+	background-color: transparent;
+}
+
+#mainMenu h2{
+	position: relative;
+	line-height:37px;
+	height:37px;
+    background-repeat:no-repeat;
+	background-color: transparent;
+	color:#fff;
+	font-size:14px;
+	margin:0 auto;
+	cursor:pointer;
+	text-align: center;
+	
+}
+#mainMenu .secondMenuUp{
+	background-image: url("../images/frame/v1/bg_menu_second_up.png");
+}
+#mainMenu .secondMenuDown{
+	background-image: url("../images/frame/v1/bg_menu_second_down.png");
+}
+
+#mainMenu ul li{
+	margin:0 auto;
+	line-height:26px;
+	list-style-type:none;
+	list-style-image:none;
+	text-align:center;
+	border-width:0px;
+	background-color: transparent;
+	background: #fff url("../images/frame/v1/bg_menu_leaf.png") no-repeat;
+}
+#mainMenu ul li a{
+	display:block;
+	width:129px;
+	height:26px;
+}
+#mainMenu ul .select{
+	background: #fff url("../images/frame/v1/bg_menu_leaf_sel.png") no-repeat;
+}
+
+/*********** left frame end ***********************************************************************/
+
+
+
+/*********** right frame end ***********************************************************************/
+
+/*********** right frame end ***********************************************************************/

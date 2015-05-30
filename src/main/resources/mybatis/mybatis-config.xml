@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="defaultStatementTimeout" value="100" />
+		<setting name="safeRowBoundsEnabled" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="false" />
+		<setting name="localCacheScope" value="SESSION" />
+		<setting name="jdbcTypeForNull" value="OTHER" />
+		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
+	</settings>
+	<typeAliases>
+		<typeAlias alias="User" type="com.usefullc.ud.domain.User" />
+		<typeAlias alias="Project" type="com.usefullc.ud.domain.Project" />
+		<typeAlias alias="Application" type="com.usefullc.ud.domain.Application" />
+		<typeAlias alias="ConfigItem" type="com.usefullc.ud.domain.ConfigItem" />
+		<typeAlias alias="DbConfigure" type="com.usefullc.ud.domain.DbConfigure" />
+		<typeAlias alias="Entity" type="com.usefullc.ud.domain.Entity" />
+		<typeAlias alias="Property" type="com.usefullc.ud.domain.Property" />
+		<typeAlias alias="EnumData" type="com.usefullc.ud.domain.EnumData" />
+		<typeAlias alias="EnumDataItem" type="com.usefullc.ud.domain.EnumDataItem" />
+		<typeAlias alias="HisEntity" type="com.usefullc.ud.domain.HisEntity" />
+		<typeAlias alias="HisProperty" type="com.usefullc.ud.domain.HisProperty" />
+		<typeAlias alias="ValidRule" type="com.usefullc.ud.domain.ValidRule"/>
+   		<typeAlias alias="ValidItemProperty" type="com.usefullc.ud.domain.ValidItemProperty"/>
+   		<typeAlias alias="ValidItem" type="com.usefullc.ud.domain.ValidItem"/>
+   		<typeAlias alias="ValidProperty" type="com.usefullc.ud.domain.ValidProperty"/>
+   		<typeAlias alias="Template" type="com.usefullc.ud.domain.Template"/>
+   		<typeAlias alias="GenFile" type="com.usefullc.ud.domain.GenFile"/>
+   		<typeAlias alias="Attachment" type="com.usefullc.ud.domain.Attachment"/>
+   		
+		<!-- form  -->
+   		<typeAlias alias="ApplicationFrm" type="com.usefullc.ud.web.form.ApplicationFrm"/>
+   		
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/usefullc/ud/mapper/UserMapper.xml" />
+		<mapper resource="com/usefullc/ud/mapper/ProjectMapper.xml" />
+		<mapper resource="com/usefullc/ud/mapper/ApplicationMapper.xml" />
+		<mapper resource="com/usefullc/ud/mapper/ConfigItemMapper.xml" />
+		<mapper resource="com/usefullc/ud/mapper/DbConfigureMapper.xml" />
+		<mapper resource="com/usefullc/ud/mapper/EntityMapper.xml" />
+		<mapper resource="com/usefullc/ud/mapper/PropertyMapper.xml" />
+		<mapper resource="com/usefullc/ud/mapper/EnumDataMapper.xml" />
+		<mapper resource="com/usefullc/ud/mapper/EnumDataItemMapper.xml" />
+		<mapper resource="com/usefullc/ud/mapper/HisEntityMapper.xml" />
+		<mapper resource="com/usefullc/ud/mapper/HisPropertyMapper.xml" />
+		<mapper resource="com/usefullc/ud/mapper/ValidRuleMapper.xml"/>
+  		<mapper resource="com/usefullc/ud/mapper/ValidItemPropertyMapper.xml"/>
+  		<mapper resource="com/usefullc/ud/mapper/ValidItemMapper.xml"/>
+  		<mapper resource="com/usefullc/ud/mapper/ValidPropertyMapper.xml"/>
+  		<mapper resource="com/usefullc/ud/mapper/TemplateMapper.xml"/>
+  		<mapper resource="com/usefullc/ud/mapper/GenFileMapper.xml"/>
+  		<mapper resource="com/usefullc/ud/mapper/AttachmentMapper.xml"/>
+	</mappers>
+</configuration>

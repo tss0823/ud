@@ -1,0 +1,52 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.edit-1.0.0.css" />
+<div>
+	<table style="background:#464646;font-family: '宋体';font-size: 16px;color: #000000;text-decoration: none; " width="619px" border="0" cellpadding="4" cellspacing="1" >
+		<tr bgcolor="#6795B4">
+			<td colspan="9">
+				$!entity.cnName,$!entity.enName
+			</td>
+         </tr>
+		 <tr bgcolor="#EEEEEE">
+			<td width="150px">英文名称</td>
+			<td width="150px">中文名称</td>
+			##<td width="140px">Java类型</td>
+			<td>DB类型</td>
+			<td>长度</td>
+			<td>默认值</td>
+			<td>允许空</td>
+			<td>主键</td>
+			<td width="70px">输入类型</td>
+			<td>输入来源</td>
+			##<td>校验分组</td>
+			##<td width="170px">备注</td>
+         </tr>
+		 #foreach($item in $!list)
+            <tr bgcolor="#FFFFFF">
+              <td>$!item.enName</td>
+              <td>$!item.cnName</td>
+##              <td>
+##              	#foreach($dataType in $!dataTypeEnums)
+##              		 #if($!item.dataType == $!dataType.value) $!dataType.value #end
+##	             #end
+##              </td>
+              <td>
+              	#foreach($dataType in $!dataTypeEnums)
+              		 #if($!item.dataType == $!dataType.value) $!dataType.dbValue #end
+	             #end
+              </td>
+              <td>$!item.length</td>
+              <td>$!item.defaultValue</td>
+              <td>#if($!item.isNull) 是#else 否#end</td>
+              <td>#if($!item.primaryKey) 是#else 否#end</td>
+              <td>#if($!item.sourceType==0) 手动输入#elseif($!item.sourceType==1) 枚举 #elseif($!item.sourceType==2) 数据集 #elseif($!item.sourceType==3) 自动生成 #end
+              </td>
+              <td>$!item.source</td>
+              ##<td>$!item.checkGroup</td>
+              ##<td>$!item.remark</td>
+			</tr>
+		 #end	
+    </table>
+    <div>
+      总共：$!list.size() 条记录	
+    </div>
+</div>

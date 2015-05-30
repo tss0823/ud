@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="ValidItemPropertyMapper">  
+   
+	<resultMap type="ValidItemProperty" id="validItemPropertyMap">
+		<result  column="id" property="id"/>
+		<result  column="valid_item_id" property="validItemId"/>
+		<result  column="valid_property_id" property="validPropertyId"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		1 = 1
+		<if test="id != null and id != ''">
+		 and  `id` = #{id}
+		</if> 
+		<if test="validItemId != null and validItemId != ''">
+		 and  `valid_item_id` = #{validItemId}
+		</if> 
+		<if test="validPropertyId != null and validPropertyId != ''">
+		 and  `valid_property_id` = #{validPropertyId}
+		</if> 
+	</sql>
+	
+	<select id="getValidItemProperty" resultMap="validItemPropertyMap">
+		 select * from valid_item_property WHERE id = #{id}
+    </select>
+    
+    <insert id="insertValidItemProperty" parameterType="ValidItemProperty" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into valid_item_property   
+		(
+		`valid_item_id`,`valid_property_id`
+		) 
+		values
+		(
+		#{ validItemId},#{ validPropertyId}
+		)
+    </insert>  
+    
+    <update id="updateValidItemProperty" parameterType="ValidItemProperty">  
+		update valid_item_property set
+		`valid_item_id` = #{ validItemId},`valid_property_id` = #{ validPropertyId}
+		where id = #{id}
+    </update>  
+    
+	<select id="getValidItemPropertyList" resultMap="validItemPropertyMap"  parameterType="Map">
+      select * from valid_item_property 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getValidItemPropertyListPage" resultMap="validItemPropertyMap"  parameterType="Map">
+      select * from valid_item_property 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getValidItemPropertyListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from valid_item_property 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteValidItemProperty" parameterType="Long">  
+        update  valid_item_property set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+	  <delete id="deleteValidItemPropertyByItemId" parameterType="Long">  
+        delete from  valid_item_property  where valid_item_id = #{id}
+     </delete> 
+     <select id="getValidItemPropertyListByItemId" resultMap="validItemPropertyMap" >
+      select * from valid_item_property where valid_item_id = #{id}
+    </select>
+     <!-- user definition code end -->
+</mapper> 
+
+

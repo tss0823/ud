@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="ApplicationMapper">  
+   
+	<resultMap type="Application" id="applicationMap">
+		<result  column="id" property="id"/>
+		<result  column="cn_name" property="cnName"/>
+		<result  column="en_name" property="enName"/>
+		<result  column="type" property="type"/>
+		<result  column="svn_link" property="svnLink"/>
+		<result  column="gmt_create" property="gmtCreate"/>
+		<result  column="gmt_modify" property="gmtModify"/>
+		<result  column="creator" property="creator"/>
+		<result  column="db_id" property="dbId"/>
+		<result  column="project_id" property="projectId"/>
+		<result  column="del_state" property="delState"/>
+		<result  column="template_path" property="templatePath"/>
+		<result  column="gen_path" property="genPath"/>
+		<result  column="package_name" property="packageName"/>
+		<result  column="ver" property="ver"/>
+		<result  column="short_name" property="shortName"/>
+		<result  column="template_id" property="templateId"/>
+	</resultMap>
+   
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null and id != '' ">
+		 and  `id` = #{id}
+		</if> 
+		<if test="cnName != null and cnName != '' ">
+		 and  `cn_name` = #{cnName}
+		</if> 
+		<if test="enName != null and enName != '' ">
+		 and  `en_name` = #{enName}
+		</if> 
+		<if test="type != null and type != '' ">
+		 and  `type` = #{type}
+		</if> 
+		<if test="svnLink != null and svnLink != '' ">
+		 and  `svn_link` = #{svnLink}
+		</if> 
+		<if test="gmtCreate != null and gmtCreate != '' ">
+		 and  `gmt_create` = #{gmtCreate}
+		</if> 
+		<if test="gmtModify != null and gmtModify != '' ">
+		 and  `gmt_modify` = sysdate
+		</if> 
+		<if test="creator != null and creator != '' ">
+		 and  `creator` = #{creator}
+		</if> 
+		<if test="dbId != null and dbId != '' ">
+		 and  `db_id` = #{dbId}
+		</if> 
+		<if test="projectId != null and projectId != '' ">
+		 and  `project_id` = #{projectId}
+		</if> 
+		<if test="templatePath != null and templatePath != '' ">
+		 and  `template_path` = #{templatePath}
+		</if> 
+		<if test="genPath != null and genPath != '' ">
+		 and  `gen_path` = #{genPath}
+		</if> 
+		<if test="packageName != null and packageName != '' ">
+		 and  `package_name` = #{packageName}
+		</if> 
+		<if test="ver != null and ver != '' ">
+		 and  `ver` = #{ver}
+		</if> 
+		<if test="shortName != null and shortName != '' ">
+		 and  `short_name` = #{shortName}
+		</if> 
+		<if test="templateId != null and templateId != '' ">
+		 and  `template_id` = #{templateId}
+		</if> 
+	</sql>
+	
+	<select id="getApplication" resultMap="applicationMap">
+		 select * from application WHERE id = #{id}
+    </select>
+    
+    <insert id="insertApplication" parameterType="Application" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into application   
+		(
+		`cn_name`,`en_name`,`type`,`svn_link`,`gmt_create`,`gmt_modify`,`creator`,`db_id`,	      
+		`project_id`,`del_state`,`template_path`,`gen_path`,`package_name`,`ver`,`short_name`,`template_id`
+		) 
+		values
+		(
+		#{ cnName},#{ enName},#{ type},#{ svnLink},now(6),now(6),#{ creator},#{ dbId},	      
+		#{ projectId},1,#{ templatePath},#{ genPath},#{ packageName},#{ ver},#{ shortName},#{ templateId}
+		)
+    </insert>  
+    
+    <update id="updateApplication" parameterType="Application">  
+		update application set
+		`cn_name` = #{ cnName},`en_name` = #{ enName},`type` = #{ type},`svn_link` = #{ svnLink}	      
+		,`gmt_modify` = now(6),`creator` = #{ creator},`db_id` = #{ dbId},`project_id` = #{ projectId}	      
+		,`template_path` = #{ templatePath},`gen_path` = #{ genPath},`package_name` = #{ packageName},`ver` = #{ ver}	      
+		,`short_name` = #{ shortName},`template_id` = #{ templateId}
+		where id = #{id}
+    </update>  
+    
+	<select id="getApplicationList" resultMap="applicationMap"  parameterType="Map">
+      select * from application 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getApplicationListPage" resultMap="applicationMap"  parameterType="Map">
+      select * from application 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getApplicationListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from application 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteApplication" parameterType="Long">  
+        update  application set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+	 <resultMap type="ApplicationFrm" id="applicationFrmMap">
+		<result  column="id" property="id"/>
+		<result  column="cn_name" property="cnName"/>
+		<result  column="en_name" property="enName"/>
+		<result  column="type" property="type"/>
+		<result  column="svn_link" property="svnLink"/>
+		<result  column="gmt_create" property="gmtCreate"/>
+		<result  column="gmt_modify" property="gmtModify"/>
+		<result  column="creator" property="creator"/>
+		<result  column="db_id" property="dbId"/>
+		<result  column="project_id" property="projectId"/>
+		<result  column="del_state" property="delState"/>
+		<result  column="template_path" property="templatePath"/>
+		<result  column="gen_path" property="genPath"/>
+		<result  column="package_name" property="packageName"/>
+		<result  column="ver" property="ver"/>
+		<result  column="short_name" property="shortName"/>
+		<result  column="template_id" property="templateId"/>
+		<result  column="template_name" property="templateName"/>
+	</resultMap>
+	
+	<sql id="whereFrmSql">
+		t1.del_state = 1 and t2.del_state = 1
+		<if test="projectId != null  ">
+		 and  t1.project_id = #{projectId}
+		</if> 
+	</sql>
+	<select id="getApplicationFrmListPage" resultMap="applicationFrmMap"  parameterType="Map">
+      select t1.*,t2.name as template_name from application t1 left join template t2 on t1.template_id = t2.id
+       <where>
+         <include refid="whereFrmSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getApplicationFrmListPageCount" resultType="Integer"  parameterType="Map">
+      select count(t1.id) from  application t1 left join template t2 on t1.template_id = t2.id
+       <where>
+         <include refid="whereFrmSql"/>
+      </where>
+    </select>
+	
+     <!-- user definition code end -->
+</mapper> 
+
+

@@ -1,0 +1,25 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.edit-1.0.0.css" />
+<div>
+	<table style="background:#464646;font-family: '宋体';font-size: 16px;color: #000000;text-decoration: none; " width="619px" border="0" cellpadding="4" cellspacing="1">
+		 <tr bgcolor="#6795B4">
+			<td colspan="2">
+				$!enumData.description,$!enumData.name
+			</td>
+         </tr>
+		 <tr bgcolor="#EEEEEE">
+			<td>值</td>
+			<td>文本</td>
+			##<td>扩展文本</td>
+         </tr>
+		 #foreach($item in $!list)
+            <tr bgcolor="#FFFFFF">
+              <td>$!item.value</td>
+              <td>$!item.text</td>
+              ##<td><input type="text" name="extText" value="$!item.extText" style="width:100%" /></td>
+			</tr>
+		 #end	
+    </table>
+    <div>
+      总共：$!list.size() 条记录	
+    </div>
+</div>

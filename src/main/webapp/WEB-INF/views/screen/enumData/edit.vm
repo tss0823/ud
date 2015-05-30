@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.edit-1.0.0.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/jquery.ud.validator.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ud.validator.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/enumData/enumData.js"></script>
+<div id="div_edit" class="div_edit">
+	<form id="editForm" method="post" action="update.htm">
+		<input type="hidden" name="id" value="$domain.id" />
+    	<table class="tb_edit">
+    		 <tr>
+    			<td class="td_label">名称：</td>
+    			<td class="td_text"><input type="text" name="name" id="name" value="$!domain.name"/><span class="val_msg"></span></td>
+             </tr>
+    		 <tr>
+    			<td class="td_label">描述：</td>
+    			<td class="td_text"><input type="text" name="description" id="description" value="$!domain.description"/><span class="val_msg"></span></td>
+             </tr>
+    		 <tr>
+    			<td class="td_label">类型：</td>
+    			<td class="td_text">
+				    <select name="dataType">
+	              	   <option value="number">数字</option>	
+	              	   <option value="text" #if("$!item.dataType" == "text") selected=true #end>字符</option>	
+	              	</select>
+              	</td>
+             </tr>
+                <tr>
+                  <td class="td_btn"  colspan="2"><input type="submit" value="保存修改" class="btn"/></td>
+    			</tr>
+        </table>
+    </form>
+</div>

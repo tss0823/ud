@@ -1,0 +1,123 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/jquery.ud.validator.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ud.validator.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/table.comp.chk.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/property/property.js"></script>
+<form id="queryForm" method="post" action="save.htm" >
+<div class="rightListDiv">
+	<div class="fun_area">
+        <div class="fun_area_left">
+    		<input type="hidden" name="entityId" value="$!entityId" />
+    		<input type="submit" value="保存" class="btn btn_normal"/>
+    		<input type="button" id="addItem" value="添加" class="btn btn_normal"/>
+    		<input type="button" id="copyItemBatch" value="批量复制" class="btn btn_normal"/>
+    		<input type="button" id="delItemBatch" value="批量删除" class="btn btn_normal"/>
+        
+            <input type="checkbox" id="chkId" />ID
+            <input type="checkbox" id="chkGmtCreate" />创建时间
+            <input type="checkbox" id="chkGmtModify" />修改时间
+            <input type="checkbox" id="chkDelState" />删除状态	
+		</div>
+	</div>
+	<div class="data_area">
+	<table class="tb_list" id="tbList">
+		 <tr class="tr_header">
+			<td><input type="checkbox" id="chkAll" /></td>
+			<td width="180px">英文名称</td>
+			<td width="230px">中文名称</td>
+			<td>数据类型</td>
+			<td>长度</td>
+			<td>默认值</td>
+			<td>允许空</td>
+			<td>主键</td>
+			<td>备注</td>
+			<td>输入类型</td>
+			<td>输入来源</td>
+			<td>校验分组</td>
+			<td>操作</td>
+         </tr>
+		 #foreach($item in $!list)
+            <tr class="#if($!velocityCount % 2 == 0)tr_cell_alt#else tr_cell#end">
+              <td><input type="checkbox" id="chkItem" value="$!item.id"/></td>
+              <td><input type="text" name="enName" value="$!item.enName" style="width:100%" /></td>
+              <td><input type="text" name="cnName" value="$!item.cnName" style="width:100%" /></td>
+              <td><select name="dataType">
+              	#foreach($dataType in $!dataTypeEnums)
+              		<option value="$!dataType.value" #if($!item.dataType == $!dataType.value) selected=true #end>$!dataType.value</option>
+	             #end
+              	</select></td>
+              <td><input type="text" name="length" value="$!item.length" style="width:100%" /></td>
+              <td><input type="text" name="defaultValue" value="$!item.defaultValue" style="width:100%" /></td>
+              <td>
+              	<select name="isNull">
+              	   <option value="0">否</option>	
+              	   <option value="1" #if($!item.isNull) selected=true #end>是</option>	
+              	</select>
+              </td>
+              <td>
+               <select name="primaryKey">
+              	   <option value="0">否</option>	
+              	   <option value="1" #if($!item.primaryKey) selected=true #end>是</option>	
+              	</select>
+              </td>
+              <td><input type="text" name="remark" value="$!item.remark" style="width:100%" /></td>
+               <td>
+               <select name="sourceType">
+              	   <option value="0">手动输入</option>	
+              	   <option value="1" #if($!item.sourceType == 1) selected=true #end>枚举</option>	
+              	   <option value="2" #if($!item.sourceType == 2) selected=true #end>数据集</option>	
+              	   <option value="3" #if($!item.sourceType == 3) selected=true #end>自动生成</option>	
+              	</select>
+              </td>
+              <td><input type="text" name="source" value="$!item.source" style="width:100%" /></td>
+              <td><input type="text" name="checkGroup" value="$!item.checkGroup" style="width:100%" /></td>
+             <td>
+             	<input type="button" id="delItem" param-id="$!item.id" value="删除" class="btn"/>
+			  </td>
+			</tr>
+		 #end	
+		 <tr id="fixItem">
+              <td><input type="checkbox" id="chkItem" value="0"/></td>
+              <td><input type="text" name="enName"  style="width:100%" /></td>
+              <td><input type="text" name="cnName"  style="width:100%" /></td>
+			   <td><select name="dataType">
+              	#foreach($dataType in $!dataTypeEnums)
+              		<option value="$!dataType.value">$!dataType.value</option>
+	             #end
+              	</select></td>
+              <td><input type="text" name="length"  style="width:100%" /></td>
+              <td><input type="text" name="defaultValue"  style="width:100%" /></td>
+              <td>
+              	<select name="isNull">
+              	   <option value="1">是</option>	
+              	   <option value="0">否</option>	
+              	</select>
+              </td>
+              <td>
+              	<select name="primaryKey">
+              	   <option value="0">否</option>	
+              	   <option value="1">是</option>	
+              	</select>
+              </td>
+               <td><input type="text" name="remark" value="$!item.remark" style="width:100%" /></td>
+               <td>
+               <select name="sourceType">
+              	   <option value="0">手动输入</option>	
+              	   <option value="1" #if($!item.sourceType == 1) selected=true #end>枚举</option>	
+              	   <option value="2" #if($!item.sourceType == 2) selected=true #end>数据集</option>	
+				   <option value="3" #if($!item.sourceType == 3) selected=true #end>自动生成</option>
+              	</select>
+              </td>
+              <td><input type="text" name="source" value="$!item.source" style="width:100%" /></td>
+              <td><input type="text" name="checkGroup" value="$!item.checkGroup" style="width:100%" /></td>
+             <td>
+             	<input type="button" id="delItem" value="删除" class="btn"/>
+			  </td>
+			</tr>
+    </table>
+    </div>
+    <div>
+      总共：$!list.size() 条记录	
+    </div>
+</div>
+</form>

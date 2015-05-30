@@ -1,0 +1,28 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/template/template.js"></script>
+<input type="hidden" id="id" value="$!id" />
+<input type="hidden" id="name" value="$!name" />
+<div class="rightListDiv">
+	<table class="tb_list">
+		 <tr class="tr_header">
+			<td><input type="checkbox" id="chkAll" /></td>
+			<td>序号</td>
+			<td>模版名称</td>
+			<td>类型</td>
+         </tr>
+		 #foreach($item in $!list)
+			#set($rowNum=$!{velocityCount}+$!{page.startRow})
+            <tr class="#if($!velocityCount % 2 == 0)tr_cell_alt#else tr_cell#end">
+              <td><input type="checkbox" id="chkItem" value="$!item.id|$!item.name"/></td>
+              <td>$!rowNum</td>
+              <td>$!item.name</td>
+              <td>$!item.type</td>
+			</tr>
+		 #end	
+    </table>
+<div class="div_center">
+  <input type="button" value="确定" id="confirm" class="btn btn_normal"/>
+  <input type="button" value="取消" id="cancel" class="btn btn_normal"/>
+</div>
+</div>

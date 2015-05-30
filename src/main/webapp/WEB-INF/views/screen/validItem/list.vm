@@ -1,0 +1,47 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/validItem/validItem.js"></script>
+<div class="rightListDiv">
+	<div class="fun_area">
+        <div class="fun_area_left">
+		#if($!query.entityId)
+			<input type="button"  id="enterNew" class="btn btn_enterNew" value="新建" param-title="新建校验项"/>
+		#end
+		<input type="button"  id="syncValidFile" class="btn btn_normal" value="同步校验文件" />
+	</div>
+    <div class="fun_area_right">
+	#parse("/common/page.vm")
+	</div>
+	</div>
+	<table class="tb_list">
+		 <tr class="tr_header">
+			<td><input type="checkbox" id="chkAll" /></td>
+			<td>序号</td>
+			<td>中文名称</td>
+			<td>英文名称</td>
+			<td>创建时间</td>
+			<td>修改时间</td>
+			<td>操作</td>
+         </tr>
+		 #foreach($item in $!page.dataList)
+			#set($rowNum=$!{velocityCount}+$!{page.startRow})
+            <tr class="#if($!velocityCount % 2 == 0)tr_cell_alt#else tr_cell#end">
+              <td><input type="checkbox" id="chkItem" value="$!item.id"/></td>
+			  <td>$!rowNum</td>
+              <td>$!item.cnName</td>
+              <td>$!item.enName</td>
+              <td>$!dateTool.format($!item.gmtCreate)</td>
+              <td>$!dateTool.format($!item.gmtModify)</td>
+             <td>
+			  <a id="enterEdit" param-id="$!item.id" param-title="校验项修改" >修改</a>|
+              <a id="remove" param-id="$!item.id">删除</a>
+			  </td>
+			</tr>
+		 #end	
+    </table>
+<div class="fun_area_right">
+#parse("/common/page.vm")
+</div>
+</div>
+<form id="queryForm" action="list.htm" method="post">
+</form>

@@ -1,0 +1,18 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/scripts/common/jquery-ztree/css/zTreeStyle/zTreeStyle.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery-ztree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery-ztree/js/jquery.ztree.excheck-3.5.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/validItem/propertyListChkTree.js"></script>
+<style>
+##.ztree li span.button.ico_docu{margin-right:2px; background-position:-110px -32px; vertical-align:top; *vertical-align:middle} 
+</style>
+<div id="mainListDiv">
+<div id="queryDiv" >
+<div id="treeDiv" class="ztree listTree" style="height:90%"></div>
+<div id="queryMore">
+</div>
+</div>
+<div id="rightListDiv">
+#parse("/screen/validItem/includeEdit.vm")
+</div>
+</div>

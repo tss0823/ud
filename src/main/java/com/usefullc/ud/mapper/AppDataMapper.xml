@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="AppDataMapper">  
+   
+	<resultMap type="AppData" id="appDataMap">
+		<result  column="id" property="id"/>
+		<result  column="key" property="key"/>
+		<result  column="value" property="value"/>
+		<result  column="app_id" property="appId"/>
+		<result  column="del_state" property="delState"/>
+	</resultMap>
+	
+	<sql id="whereSql">
+		del_state = 1
+		<if test="id != null ">
+		 and  `id` = #{id}
+		</if> 
+		<if test="key != null ">
+		 and  `key` = #{key}
+		</if> 
+		<if test="value != null ">
+		 and  `value` = #{value}
+		</if> 
+		<if test="appId != null ">
+		 and  `app_id` = #{appId}
+		</if> 
+	</sql>
+	
+	<select id="getAppData" resultMap="appDataMap">
+		 select * from app_data WHERE id = #{id}
+    </select>
+    
+    <insert id="insertAppData" parameterType="AppData" >  
+        <selectKey keyProperty="id" resultType="Long" order="AFTER" >
+	      select LAST_INSERT_ID()
+	   </selectKey>
+		insert into app_data   
+		(
+		`key`,`value`,`app_id`,`del_state`
+		) 
+		values
+		(
+		#{ key},#{ value},#{ appId},1
+		)
+    </insert>  
+    
+    <update id="updateAppData" parameterType="AppData">  
+		update app_data set
+		`key` = #{ key},`value` = #{ value},`app_id` = #{ appId}
+		where id = #{id}
+    </update>  
+    
+	<select id="getAppDataList" resultMap="appDataMap"  parameterType="Map">
+      select * from app_data 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+	<select id="getAppDataListPage" resultMap="appDataMap"  parameterType="Map">
+      select * from app_data 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+        order by id desc 
+         limit #{startRow},#{pageSize} 
+    </select>
+    
+	<select id="getAppDataListPageCount" resultType="Integer"  parameterType="Map">
+      select count(*) from app_data 
+      <where>
+         <include refid="whereSql"/>
+      </where>
+    </select>
+    
+     <update id="deleteAppData" parameterType="Long">  
+        update  app_data set del_state = 0  where id = #{id}
+     </update>  
+	 
+	 <!-- user definition code start -->
+
+     <!-- user definition code end -->
+</mapper> 
+
+

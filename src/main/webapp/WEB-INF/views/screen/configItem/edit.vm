@@ -1,0 +1,32 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.edit-1.0.0.css" />
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/jquery.ud.validator.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ud.validator.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/configItem/configItem.js"></script>
+<div id="div_edit" class="div_edit">
+	<form id="editForm">
+		<input type="hidden" name="appId"  id="appId" value="$!appId" />
+    	<table class="tb_edit">
+    		 <tr>
+    			<td class="td_label">名称：</td>
+    			<td class="td_text"><input type="text" name="key" id="key" value="$!key" style="width:200px" /><span class="val_msg"></span></td>
+             </tr>
+			 #foreach($item in $!itemList)
+			  <tr>
+    			<td class="td_label">$!{item.module}：</td>
+    			<td class="td_text">
+				  <input type="hidden" name="modules" value="$!item.module" />
+				  <input type="text" name="vals" value="$!item.value" style="width:450px"/>
+				  <span class="val_msg"></span>
+				</td>
+              </tr>
+			 #end	
+                <tr>
+                  <td colspan="2" class="td_btn">
+					<input type="button" value="保存修改" id="update" class="btn btn_save" param-id-prop="appId" param-id="$!appId" />
+					<input type="button" value="列表" id="list" class="btn btn_query" />
+				  </td>
+    			</tr>
+        </table>
+    </form>
+</div>

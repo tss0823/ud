@@ -1,0 +1,44 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/dbConfigure/dbConfigure.js"></script>
+<div class="rightListDiv">
+	<div class="fun_area">
+        <div class="fun_area_left">
+	<input type="button"  id="enterNew" class="btn btn_enterNew" value="新建" param-title="新建数据库配置"/>
+	</div>
+    <div class="fun_area_right">
+	#parse("/common/page.vm")
+	</div>
+	</div>
+	<table class="tb_list">
+		 <tr class="tr_header">
+			<td width="3%">序号</td>
+			<td width="5%">名称</td>
+			<td width="5%">类型</td>
+			<td width="15%">地址</td>
+			<td width="9%">驱动</td>
+			<td width="4%">用户名</td>
+			<td width="4%">密码</td>
+			<td width="6%">操作</td>
+         </tr>
+		 #foreach($item in $!page.dataList)
+			#set($rowNum=$!{velocityCount}+$!{page.startRow})
+            <tr class="#if($!velocityCount % 2 == 0)tr_cell_alt#else tr_cell#end">
+              <td>$!rowNum</td>
+              <td>$!item.name</td>
+              <td>$!item.type</td>
+              <td>$!item.url</td>
+              <td>$!item.driver</td>
+              <td>$!item.user</td>
+              <td>$!item.password</td>
+             <td>
+			  <a id="enterEdit" param-id="$!item.id" param-title="数据库配置修改" >修改</a>|
+              <a id="remove" param-id="$!item.id">删除</a>
+			  </td>
+			</tr>
+		 #end	
+    </table>
+<div class="fun_area_right">
+#parse("/common/page.vm")
+</div>
+</div>

@@ -1,0 +1,102 @@
+html {
+	/* 	overflow: hidden; */
+	overflow-x: hidden; overflow-y: auto;
+	background-color:#F7F7F7
+	
+}
+body {
+	/* 	overflow: hidden; */
+	overflow-x: hidden; overflow-y: auto;
+	background-color:#F8F8F8;
+}
+
+.div_edit{
+	padding:10px;
+	background-color: #F8F8F8;
+	overflow-y: auto;
+}
+
+
+.tb_edit{
+	background-color: #F8F8F8;
+	margin:0; 
+	border:1px #c6cfd4 solid; 
+	text-align:center;
+    width:100%;
+	*width:98%;
+	border-collapse:collapse;
+	font-size:12px;
+}
+
+.tb_edit td{ 
+	height:20px; border-right:1px #c6cfd4 solid; border-bottom:1px #c6cfd4 solid;
+	word-break:break-all;
+}
+
+
+.td_cell{
+	height: 30px;
+}
+
+.td_label{
+	height:26px;
+	line-height:26px;
+	text-align: right;
+	padding:2px 3px 2px 0;
+	vertical-align: middle;
+}
+
+.td_text{
+	height:26px;
+	line-height:26px;
+	text-align: left;
+	padding:2px 5px 2px 5px;
+	vertical-align: middle;
+	background-color:white;	
+}
+
+.txt{
+	height:22px;
+	line-height:22px;
+	width:200px;
+}
+
+.full_txt{
+	height:22px;
+	line-height:22px;
+	width:100%;
+}
+
+.sel{
+	line-height:22px;
+	height:22px;
+	width:200px;
+}
+/*******other ext********/
+.td_tab{
+	height:30px;
+	line-height:30px;
+	text-align: left;
+	background-color:#f6f8f9;
+	padding-left:4px;
+	vertical-align: middle;
+}
+.switch_tab{
+	font-size:15px;
+	font-weight:bolder;
+	color: #005;
+	cursor: pointer;
+}
+
+.title_td {
+	width:100%;
+	height:28px;
+	line-height:28px;
+	background:url(../../../images/apply/center.png);
+	border-left:1px solid #DADADA;
+	border-right:1px solid #DADADA;
+	padding-left:10px;
+	font-weight:bold;
+	text-align: left;
+	font-size:11pt;
+}

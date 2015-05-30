@@ -1,0 +1,47 @@
+<link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/common.list-1.0.0.css" />
+<script type="text/javascript" src="$!{serverPath}/scripts/common/common_module-1.0.0.js"></script>
+<script type="text/javascript" src="$!{serverPath}/scripts/validRule/validRule.js"></script>
+<form id="queryForm" action="list.htm" method="post">
+<div class="rightListDiv">
+	<div class="fun_area">
+        <div class="fun_area_left">
+	<input type="button"  id="enterNew" class="btn btn_enterNew" value="新建" param-title="新建校验规则"/>
+	</div>
+    <div class="fun_area_right">
+	#parse("/common/page.vm")
+	</div>
+	</div>
+	<table class="tb_list">
+		 <tr class="tr_header">
+			<td>序号</td>
+			<td>名称</td>
+			<td>类型</td>
+			<td>JS正则</td>
+			<td>JAVA正则</td>
+			<td>创建时间</td>
+			<td>修改时间</td>
+			<td>操作</td>
+         </tr>
+		 #foreach($item in $!page.dataList)
+			#set($rowNum=$!{velocityCount}+$!{page.startRow})
+            <tr class="#if($!velocityCount % 2 == 0)tr_cell_alt#else tr_cell#end">
+              <td>$!rowNum</td>
+              <td>$!item.name</td>
+              <td>$!item.type</td>
+              <td>$!item.jsRegex</td>
+              <td>$!item.javaRegex</td>
+              <td>$!dateTool.format($!item.gmtCreate)</td>
+              <td>$!dateTool.format($!item.gmtModify)</td>
+             <td>
+			  <a id="enterEdit" param-id="$!item.id" param-title="校验规则修改" >修改</a>|
+              <a id="remove" param-id="$!item.id">删除</a>
+			  </td>
+			</tr>
+		 #end	
+    </table>
+<div class="fun_area_right">
+#parse("/common/page.vm")
+</div>
+</div>
+
+</form>

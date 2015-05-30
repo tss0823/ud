@@ -1,0 +1,257 @@
+html {
+	/* 	overflow: hidden; */
+	overflow-x: hidden; 
+/* 	overflow-y: auto;  update at 2014.05.12 */
+	overflow-y: hidden;  
+	
+}
+body {
+	/* 	overflow: hidden; */
+	overflow-x: hidden; 
+	overflow-y: hidden;
+}
+
+#mainListDiv {
+	width: 100%;
+	height: 100%;
+	/* 	overflow: hidden; */
+}
+
+#queryDiv {
+	width: 200px;
+	*width: 180px; 
+	height: 100%;
+	float: left;
+	background-color: #f1f7f8;
+	border-right: 1px solid #c2c2c2;
+	overflow-y: auto;
+}
+*html #queryDiv {
+	margin-right:-3px;
+}
+
+.listTree {
+/* 	width: 170px !import; */
+	width: 180px;
+	height: 300px;
+	padding: 5px 0;
+	margin:0 10px;
+	margin-top:0px;
+	margin-bottom:10px;
+	background-color: white;
+	border: 1px solid #c2c2c2;
+	overflow-y: auto;
+}
+
+.flagTree {
+	width: 180px;
+	height:30px;
+	margin-top:10px;
+	margin-left:10px;
+	font-size:12px;
+}
+
+.listTree-1 {
+/* 	width: 170px !import; */
+	width: 180px;
+	height: 95%;
+	padding: 5px 0;
+	margin:0 10px;
+	margin-top:10px;
+	margin-bottom:10px;
+	background-color: white;
+	border: 1px solid #c2c2c2;
+	overflow-y: auto;
+}
+#queryMore {
+	margin: 2px 10px;
+}
+
+#queryMore ul li {
+	margin: 0 auto;
+	line-height: 26px;
+	list-style-type: none;
+	list-style-image: none;
+	text-align: left;
+	border-width: 0px;
+}
+
+.tb_query {
+	width: 100%;
+	font-size:12px;
+}
+
+.tb_query tr {
+	line-height: 26px;
+}
+
+.s_text {
+	width: 100px;
+}
+#rightListDiv {
+	background-color: #fff;
+/* 	margin: 0 5px; */
+	*width:100%;
+	*height:100%;
+	overflow-y: auto;
+}
+.rightListDiv {
+	background-color: #fff;
+	padding:10px;
+	overflow-y: auto;
+}
+
+/******************  list top fun area *********************/
+.fun_area {
+	height: 37px;
+	margin-left: 18px;
+}
+
+.fun_area_left {
+	float: left;
+	margin-top: 6px;
+}
+
+
+.fun_area_right {
+	float: right;
+	margin-top: 6px;
+}
+
+
+.data_area {
+	width:100%;
+	height:450px;
+	overflow-y: auto;
+}
+
+/******** table layout **********/
+.tb_list {
+	width:100%;
+	*width:98%;
+	margin:10px 0;
+	background-color: #FFFFFF;
+	border: 1px #c6cfd4 solid;
+	border-collapse: collapse;
+	text-align: center;
+	font-size:12px;
+}
+
+.tb_list td {
+	height: 26px;
+	border-right: 1px #c6cfd4 solid;
+	border-bottom: 1px #c6cfd4 solid;
+	word-break: break-all;
+	word-wrap: break-word;
+	padding: 0 3px;
+}
+
+.tb_list .td_op a {
+	color: #36629B;
+}
+.tb_list .div_overflow {
+	width:200px;  
+    overflow:hidden;  
+    white-space:nowrap;  
+    text-overflow:ellipsis;  
+    -o-text-overflow:ellipsis;  
+    -icab-text-overflow: ellipsis;  
+    -khtml-text-overflow: ellipsis;  
+    -moz-text-overflow: ellipsis;  
+    -webkit-text-overflow: ellipsis;  
+}
+
+.tr_header {
+	background-color: #f1f5f6;
+	
+	height: 30px;
+	
+	text-align: center;
+}
+
+.tr_cell {
+	height: 30px;
+	padding-left: 8px;
+}
+
+.tr_cell_left {
+	height: 30px;
+	padding-left: 8px;
+	text-align: left;
+}
+
+.tr_cell_alt {
+	height: 30px;
+	background: #f6f8f9;
+}
+
+.tr_bgblue {
+	background-color:#CBE3F9;
+}
+
+/* page  */
+.page {
+	line-height: 24px;
+	/* 	height:24px; */
+	width: 300px;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 12px;
+}
+
+.page a {
+	color: #164599;
+}
+
+.td_mouse_on{
+	background:#FFE4C4;
+}
+
+/********************************申请页面标题栏******************************************************/
+.title_td {
+	width:100%;
+	height:28px;
+	background:url(../../../images/apply/center.png);
+	border-left:1px solid #DADADA;
+	border-right:1px solid #DADADA;
+	padding-left:10px;
+	font-weight:bold;
+}
+.title_td_left {
+	width:100%;
+	height:28px;
+	background:url(../../../images/apply/center.png);
+	border-left:1px solid #DADADA;
+	padding-left:10px;
+	font-weight:bold;
+}
+.title_td_right {
+	width:100%;
+	height:28px;
+	background:url(../../../images/apply/center.png);
+	border-right:1px solid #DADADA;
+	padding-left:10px;
+	font-weight:bold;
+}
+/********************************申请页面标题栏******************************************************/
+.tb_detail {
+	width:100%;
+	*width:98%;
+	background-color: #FFFFFF;
+	border: 1px #c6cfd4 solid;
+	border-collapse: collapse;
+	text-align: center;
+	font-size:12px;
+}
+.tb_detail td {
+	height: 26px;
+	border-right: 1px #c6cfd4 solid;
+	border-bottom: 1px #c6cfd4 solid;
+	word-break: break-all;
+	word-wrap: break-word;
+	padding: 0 3px;
+}
+
+.tb_detail .td_op a {
+	color: #36629B;
+}
