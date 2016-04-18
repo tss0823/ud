@@ -72,8 +72,10 @@ $(document).ready(function(){
 			var obj = $("#"+fixItem).clone();
 			obj.find("input:eq(1)").val("gmtCreate");
 			obj.find("input:eq(2)").val("创建时间");
+			obj.find("input:eq(3)").val("");
 			obj.find("select:eq(0)").find("option[value='java.util.Date']").attr("selected","selected");
 			obj.find("select:eq(1)").find("option[value='0']").attr("selected","selected");
+			obj.find("select:eq(2)").find("option[value='0']").attr("selected","selected");
 			obj.appendTo("#tbList");
 		}else{
 			$("#tbList").find("input[value='gmtCreate']").parents("tr").remove();
@@ -86,8 +88,10 @@ $(document).ready(function(){
 			var obj = $("#"+fixItem).clone();
 			obj.find("input:eq(1)").val("gmtModify");
 			obj.find("input:eq(2)").val("修改时间");
+			obj.find("input:eq(3)").val("");
 			obj.find("select:eq(0)").find("option[value='java.util.Date']").attr("selected","selected");
 			obj.find("select:eq(1)").find("option[value='0']").attr("selected","selected");
+			obj.find("select:eq(2)").find("option[value='0']").attr("selected","selected");
 			obj.appendTo("#tbList");
 		}else{
 			$("#tbList").find("input[value='gmtModify']").parents("tr").remove();
@@ -100,8 +104,10 @@ $(document).ready(function(){
 			var obj = $("#"+fixItem).clone();
 			obj.find("input:eq(1)").val("delState");
 			obj.find("input:eq(2)").val("删除状态（0：已删除；1：未删除）");
+			obj.find("input:eq(3)").val("");
 			obj.find("select:eq(0)").find("option[value='java.lang.Boolean']").attr("selected","selected");
 			obj.find("select:eq(1)").find("option[value='0']").attr("selected","selected");
+			obj.find("select:eq(2)").find("option[value='0']").attr("selected","selected");
 			obj.appendTo("#tbList");
 		}else{
 			$("#tbList").find("input[value='delState']").parents("tr").remove();

@@ -25,7 +25,7 @@ public class JavaUtils {
         StringTokenizer st = new StringTokenizer(name, "_");
         StringBuilder sb = new StringBuilder();
         while (st.hasMoreTokens()) {
-            String token = st.nextToken().toLowerCase();
+            String token = st.nextToken();
             StringUtils.capitalize(token);
             sb.append(StringUtils.capitalize(token));
         }

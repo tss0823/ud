@@ -4,6 +4,9 @@
 package com.usefullc.ud.common.utils;
 
 
+import com.usefullc.platform.common.utils.ConfigUtils;
+import org.apache.commons.lang.StringUtils;
+
 /**
  * 数据库工具类
  * @author tangss
@@ -18,6 +21,10 @@ public class DbUtils {
 	 * @return
 	 */
 	public static String javaToTableName(String name){
+		String isBlankLine = ConfigUtils.getValue("gen.isBlankLine");
+		if(!StringUtils.equals(isBlankLine,"yes")){
+			return name;
+		}
 		StringBuilder sb = new StringBuilder();
 	    for(int i = 0; i < name.length(); i++){
 	    	char ch = name.charAt(i);
