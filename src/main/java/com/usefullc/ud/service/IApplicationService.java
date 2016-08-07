@@ -164,12 +164,21 @@ public interface IApplicationService {
 
     /**
      * 构建删除sql
-     * 
+     *
      * @param appId
      * @param entityIds
      * @return
      */
     String buildDelSql(Long appId, Object[] entityIds);
+
+    /**
+     * 构建实体配置
+     * 
+     * @param appId
+     * @param entityIds
+     * @return
+     */
+    String buildBeanConfig(Long appId, Object[] entityIds);
 
     /**
      * 同步校验

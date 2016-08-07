@@ -121,6 +121,22 @@ $(function(){
 			}
 		},'json');
 	});
+	$("#buildBeanConfig").click(function(){  //构建实体配置
+		var ids = getChkIds();
+		if(!ids){
+			alert("请选择一项");
+			return;
+		}
+		showLoadTips();
+		var params = {ids:ids,appId:appId};
+		$.post("buildBeanConfig.htm",params,function(data, textStatus){
+			if(data.result == "1"){
+				showResultTips();
+				alertText(data.data);
+			}
+		},'json');
+	});
+	
 	$("#buildDelSql").click(function(){  //构建删除数据库
 		var ids = getChkIds();
 		if(!ids){

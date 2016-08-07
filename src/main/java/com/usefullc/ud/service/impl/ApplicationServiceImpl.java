@@ -542,6 +542,17 @@ public class ApplicationServiceImpl extends AbstractBaseService implements IAppl
 
     }
 
+    @Override
+    public String buildBeanConfig(Long appId, Object[] entityIds) {
+        ApplicationBo appBo = getAppBo(appId, entityIds);
+        List<EntityBo> entityList = appBo.getEntityBoList();
+        StringBuilder sb = new StringBuilder();
+        for (EntityBo entityBo : entityList) {
+
+        }
+        return sb.toString();
+    }
+
     /*
      * (non-Javadoc)
      * @see com.usefullc.ud.service.IApplicationService#syncSql(java.lang.Object[])

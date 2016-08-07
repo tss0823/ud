@@ -131,6 +131,8 @@ public class ApplicationBuilder {
         globalParamMap.put("tableSpace", appBo.getDbConfigure().getTableSpace());
         globalParamMap.put("jdbc", appBo.getDbConfigure());
 
+
+
         List<Map<String, Object>> paramList = new ArrayList<Map<String, Object>>();
         List<Map<String, String>> replaceList = new ArrayList<Map<String, String>>();
         List<EntityBo> entityBoList = appBo.getEntityBoList();
@@ -176,17 +178,23 @@ public class ApplicationBuilder {
                 propertyBo.setColumnName(columnName);
                 propertyBo.setUpperColumnName(columnName.toUpperCase());
             }
+            //modify at 2016-08-4
+            globalParamMap.put("entityBoList", entityBoList);  //为了mybatis-config dalConfig 能拿到实体
+
             paramMap.putAll(globalParamMap);
             paramList.add(paramMap);
 
         }
+
         // 构建multi
         for (int i = 0; i < paramList.size(); i++) {
             Map<String, Object> paramMap = paramList.get(i);
-            String multiPath = ConfigUtils.getValue("gen.multiPath");
+            String multiPath = "";  //ConfigUtils.getValue("gen.multiPath");
             String abstractMultiPath = templateDir + File.separator + multiPath;
             try {
                 File multiTemplateFile = new File(abstractMultiPath);
+                //templateDir= 模板路径
+                //genPath=生成径路
                 operateFile(templateDir, paramMap, replaceList.get(i), multiTemplateFile, genPath, true, false);
             } catch (IOException e) {
                 throw new RuntimeException("operateFile failed! ", e);
@@ -500,6 +508,10 @@ public class ApplicationBuilder {
                     String fileModule = filePath.substring(start + 1, end);
                     if (hasHis && !singleFileModuleList.contains(fileModule)) {
                         continue;
+                    }
+
+                    if (fileName.endsWith("mybatis-config.xml") || fileName.endsWith("DalConfig.java")) {
+                        System.out.printf("");
                     }
 
                     String fileContent = VelocityRenderUtils.getContent(paramMap, templateDir, file.getName());

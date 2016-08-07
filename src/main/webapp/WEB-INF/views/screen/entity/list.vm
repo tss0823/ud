@@ -11,6 +11,7 @@
            <input type="button" id="syncValid" value="同步校验" class="btn btn_normal"/>
            <input type="button" id="buildApp" value="构建工程" class="btn btn_normal"/>
            <input type="button" id="buildSql" value="构建SQL" class="btn btn_normal"/>
+            <input type="button" id="buildConfig" value="构建实体配置" class="btn btn_normal"/>
            <input type="button" id="buildDelSql" value="构建删除SQL" class="btn btn_normal"/>
            <input type="button" id="deleteAll" value="删除" class="btn btn_normal"/>
 	</div>

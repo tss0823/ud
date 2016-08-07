@@ -212,6 +212,7 @@ public class EntityController extends BaseController {
         return frm;
     }
 
+
     /**
      * 构建单个删除sql
      * 
@@ -227,6 +228,20 @@ public class EntityController extends BaseController {
         return frm;
     }
 
+    /**
+     * 构建实体配置
+     *
+     * @param appId
+     * @param ids
+     * @return
+     */
+    @RequestMapping(value = "/buildBeanConfig.htm")
+    @ResponseBody
+    public CommonJsonForm buildBeanConfig(@RequestParam Long appId, @RequestParam String ids) {
+        String str = applicationService.buildBeanConfig(appId, ids.split(","));
+        CommonJsonForm frm = new CommonJsonForm(SUCCESS, str);
+        return frm;
+    }
     /**
      * 同步校验
      * 
