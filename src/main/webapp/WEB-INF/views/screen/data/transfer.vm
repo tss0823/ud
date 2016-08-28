@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="$!{serverPath}/styles/jquery.ud.validator.css" />
 <script type="text/javascript" src="$!{serverPath}/scripts/common/jquery.ud.validator.js"></script>
 <script type="text/javascript" src="$!{serverPath}/scripts/data/transfer.js"></script>
-<div id="div_edit" class="div_edit">
+<div id="div_edit" class="div_edit" style="height:600px">
 	<form id="editForm" method="post">
     	<table class="tb_edit">
     		 <tr>

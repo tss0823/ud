@@ -109,7 +109,7 @@ public class DbMysqlBuilder implements DbBuilder {
         sb.append("\n");
         sb.append(")");
         sb.append(" ");
-        sb.append("ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='");
+        sb.append("ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='");
         sb.append(entity.getCnName());
         sb.append("';");
         sb.append("\n\n");
