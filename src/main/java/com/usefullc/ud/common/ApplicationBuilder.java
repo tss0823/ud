@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import com.usefullc.ud.common.utils.ReplaceUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
@@ -474,7 +475,7 @@ public class ApplicationBuilder {
             String oppsitePath = filePath.substring(baseTemplateDir.length());
             log.info("oppsitePath=" + oppsitePath);
             String newFilePath = genPath + File.separator + oppsitePath;
-            newFilePath = RegexUtils.replaceAll(newFilePath, replaceMap);
+            newFilePath = ReplaceUtils.replaceAll(newFilePath, replaceMap);
             log.info("newFilePath=" + newFilePath);
             new File(newFilePath).mkdirs();
         }
@@ -485,14 +486,14 @@ public class ApplicationBuilder {
             String oppsitePath = filePath.substring(baseTemplateDir.length());
             if (file.isFile()) { // 文件处理
                 // 防止人工错误
-                if (isMulti && fileName.indexOf("${") == -1) { // 多个规则，遇到非动态字符则过滤
+                if (isMulti && fileName.indexOf("_") == -1) { // 多个规则，遇到非动态字符则过滤
                     continue;
-                } else if (!isMulti && fileName.indexOf("${") != -1) { // 单个规则，遇到动态字符则过滤
+                } else if (!isMulti && fileName.indexOf("_") != -1) { // 单个规则，遇到动态字符则过滤
                     continue;
                 }
                 log.info("oppsitePath=" + oppsitePath);
                 String newFilePath = genPath + File.separator + oppsitePath;
-                newFilePath = RegexUtils.replaceAll(newFilePath, replaceMap);
+                newFilePath = ReplaceUtils.replaceAll(newFilePath, replaceMap);
                 log.info("newFilePath=" + newFilePath);
                 File newFile = new File(newFilePath);
                 // 后缀过滤，不解析，直接复制内容
