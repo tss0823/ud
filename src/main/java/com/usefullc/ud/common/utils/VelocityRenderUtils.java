@@ -160,8 +160,8 @@ public class VelocityRenderUtils {
 
 
 
-		String templateFileDir = "/u01/workspace/template2/_appEnName_-dal/src/main/resources/mapper";
-		String fileName = "_upperEntityEnName_Mapper.xml";
+		String templateFileDir = "/u01/workspace/template2/_appEnName_-model/src/main/java/_packagePath_/model/domain";
+		String fileName = "_upperEntityEnName_.java";
 
 		String str = getContent(params,templateFileDir,fileName);
 		System.out.printf("file start\n");

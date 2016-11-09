@@ -279,6 +279,9 @@ public class DbMysqlBuilder implements DbBuilder {
             if (propString.indexOf("PRIMARY KEY") != -1) {
                 continue;
             }
+            if (propString.indexOf("UNIQUE KEY") != -1) {
+                continue;
+            }
             PropertyBo property = new PropertyBo();
             bo.addProp(property);
             String[] stepPropStrs = propString.split("\\s+");

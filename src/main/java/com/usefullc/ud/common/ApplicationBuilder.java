@@ -127,6 +127,7 @@ public class ApplicationBuilder {
         globalParamMap.put("appEnName", appBo.getEnName());
         String packagePath = packageName.replaceAll("\\.", "/");
         globalReplaceMap.put("packagePath", packagePath);
+        globalReplaceMap.put("appEnName", appBo.getEnName());
         globalParamMap.put("packagePath", packagePath);
         globalParamMap.put("dbType", appBo.getDbConfigure().getType());
         globalParamMap.put("tableSpace", appBo.getDbConfigure().getTableSpace());
@@ -230,6 +231,7 @@ public class ApplicationBuilder {
         globalParamMap.put("packageName", packageName);
         globalParamMap.put("appEnName", appBo.getEnName());
         String packagePath = packageName.replaceAll("\\.", "/");
+        globalReplaceMap.put("appEnName", appBo.getEnName());
         globalReplaceMap.put("packagePath", packagePath);
         globalParamMap.put("packagePath", packagePath);
         globalParamMap.put("dbType", appBo.getDbConfigure().getType());
@@ -346,6 +348,7 @@ public class ApplicationBuilder {
         globalParamMap.put("appEnName", appBo.getEnName());
         String packagePath = packageName.replaceAll("\\.", "/");
         globalReplaceMap.put("packagePath", packagePath);
+        globalReplaceMap.put("appEnName", appBo.getEnName());
         globalParamMap.put("packagePath", packagePath);
 
         List<Map<String, Object>> paramList = new ArrayList<Map<String, Object>>();
