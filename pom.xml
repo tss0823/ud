@@ -182,7 +182,7 @@
 				<version>2.0</version>
 				<configuration>
 					<!-- http port -->
-					<port>8081</port>
+					<port>8083</port>
 					<!-- application path always starts with / -->
 					<path>/</path>
 				</configuration>
