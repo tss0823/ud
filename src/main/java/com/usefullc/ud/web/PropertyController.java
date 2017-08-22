@@ -91,7 +91,7 @@ public class PropertyController extends BaseController {
                        @RequestParam String[] checkGroup) {
         propertyService.updateProperty(entityId, enName, cnName, dataType, length, defaultValue, isNull, primaryKey,
                                        remark, sourceType, source, checkGroup);
-        return redirect("/property/list.htm") + "?entityId=" + entityId;
+        return redirect("property/list.htm") + "?entityId=" + entityId;
     }
 
     /**
