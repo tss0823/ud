@@ -7,15 +7,6 @@
 
 package com.usefullc.ud.service.impl;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.BooleanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-
 import com.usefullc.platform.common.web.Pagination;
 import com.usefullc.platform.service.AbstractBaseService;
 import com.usefullc.ud.dao.IPropertyDao;
@@ -26,6 +17,14 @@ import com.usefullc.ud.service.IApplicationService;
 import com.usefullc.ud.service.IEntityService;
 import com.usefullc.ud.service.IHisPropertyService;
 import com.usefullc.ud.service.IPropertyService;
+import org.apache.commons.lang.BooleanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 属性 Service 实现类
@@ -159,12 +158,36 @@ public class PropertyServiceImpl extends AbstractBaseService implements IPropert
             property.setDataType(dataType[i]);
             property.setLength(length[i]);
             property.setDefaultValue(defaultValue[i]);
-            property.setIsNull(BooleanUtils.toBooleanObject(isNull[i], "1", "0", ""));
-            property.setPrimaryKey(BooleanUtils.toBooleanObject(primaryKey[i], "1", "0", ""));
-            property.setRemark(remark[i]);
-            property.setSourceType(Integer.valueOf(sourceType[i]));
-            property.setSource(source[i]);
-            property.setCheckGroup(checkGroup[i]);
+            if(StringUtils.isEmpty(isNull[i])){
+                property.setIsNull(false);
+            }else{
+                if(isNull[i].equalsIgnoreCase("true") || isNull[i].equalsIgnoreCase("false")){
+                    property.setIsNull(BooleanUtils.toBoolean(isNull[i]));
+                }else{
+                    property.setIsNull(BooleanUtils.toBooleanObject(isNull[i], "1", "0", ""));
+                }
+            }
+            if(StringUtils.isEmpty(primaryKey[i])){
+                property.setPrimaryKey(false);
+            }else{
+                if(primaryKey[i].equalsIgnoreCase("true") || primaryKey[i].equalsIgnoreCase("false")){
+                    property.setPrimaryKey(BooleanUtils.toBoolean(primaryKey[i]));
+                }else{
+                    property.setPrimaryKey(BooleanUtils.toBooleanObject(primaryKey[i], "1", "0", ""));
+                }
+            }
+            if(remark != null){
+                property.setRemark(remark[i]);
+            }
+            if(sourceType != null){
+                property.setSourceType(Integer.valueOf(sourceType[i]));
+            }
+            if(source != null){
+                property.setSource(source[i]);
+            }
+            if(checkGroup != null){
+                property.setCheckGroup(checkGroup[i]);
+            }
             property.setVer(ver);
             propertyDao.insertProperty(property);
         }

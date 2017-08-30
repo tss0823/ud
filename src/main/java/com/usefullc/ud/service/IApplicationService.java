@@ -121,7 +121,7 @@ public interface IApplicationService {
      * @param id
      * @param entityIdArray
      */
-    void buildApp(Long id, Object[] entityIdArray);
+    Long buildApp(Long id, Object[] entityIdArray);
 
     /**
      * 构建校验文件

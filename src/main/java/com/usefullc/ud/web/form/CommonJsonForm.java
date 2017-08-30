@@ -21,16 +21,32 @@ public class CommonJsonForm implements Serializable {
 
     private String            result;
 
-    private String            data;
+    private Object            data;
 
     /**
      * @param result
      * @param data
      */
-    public CommonJsonForm(String result, String data){
+    public CommonJsonForm(String result, Object data){
         super();
         this.result = result;
         this.data = data;
+    }
+    /**
+     * @param result
+     * @param data
+     */
+    public CommonJsonForm(Integer result, Object data){
+        super();
+        this.result = result.toString();
+        this.data = data;
+    }
+    /**
+     * @param result
+     */
+    public CommonJsonForm(Integer result){
+        super();
+        this.result = result.toString();
     }
 
     public String getResult() {
@@ -41,11 +57,11 @@ public class CommonJsonForm implements Serializable {
         this.result = result;
     }
 
-    public String getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Object data) {
         this.data = data;
     }
 

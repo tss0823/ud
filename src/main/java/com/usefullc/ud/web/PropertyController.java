@@ -86,9 +86,9 @@ public class PropertyController extends BaseController {
     public String save(@RequestParam Long entityId, @RequestParam String[] enName, @RequestParam String[] cnName,
                        @RequestParam String[] dataType, @RequestParam String[] length,
                        @RequestParam String[] defaultValue, @RequestParam String[] isNull,
-                       @RequestParam String[] primaryKey, @RequestParam String[] remark,
-                       @RequestParam String[] sourceType, @RequestParam String[] source,
-                       @RequestParam String[] checkGroup) {
+                       @RequestParam String[] primaryKey, @RequestParam(required = false) String[] remark,
+                       @RequestParam(required = false) String[] sourceType, @RequestParam(required = false) String[] source,
+                       @RequestParam(required = false) String[] checkGroup) {
         propertyService.updateProperty(entityId, enName, cnName, dataType, length, defaultValue, isNull, primaryKey,
                                        remark, sourceType, source, checkGroup);
         return redirect("property/list.htm") + "?entityId=" + entityId;

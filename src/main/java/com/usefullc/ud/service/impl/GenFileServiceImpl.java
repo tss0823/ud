@@ -7,14 +7,6 @@
 
 package com.usefullc.ud.service.impl;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.usefullc.platform.common.utils.IOUtils;
 import com.usefullc.platform.common.web.Pagination;
 import com.usefullc.platform.service.AbstractBaseService;
@@ -23,6 +15,12 @@ import com.usefullc.ud.domain.Attachment;
 import com.usefullc.ud.domain.GenFile;
 import com.usefullc.ud.service.IAttachmentService;
 import com.usefullc.ud.service.IGenFileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class GenFileServiceImpl extends AbstractBaseService implements IGenFileService {

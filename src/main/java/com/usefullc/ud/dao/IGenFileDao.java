@@ -6,12 +6,11 @@
  */
 
 package com.usefullc.ud.dao;
+import com.usefullc.platform.common.web.Pagination;
+import com.usefullc.ud.domain.GenFile;
+
 import java.util.List;
 import java.util.Map;
-
-import com.usefullc.platform.common.web.Pagination;
-
-import com.usefullc.ud.domain.GenFile;
 
 /**
  * 生成文件DAO

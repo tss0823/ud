@@ -11,5 +11,8 @@
  <context:component-scan base-package="com.usefullc.ud"/>
     
     <import resource="classpath*:applicationContext-common-web.xml"/>
-        
+
+    <bean id="exceptionResolver" class="com.usefullc.ud.common.ExceptionHandler"/>
+
+
 </beans>

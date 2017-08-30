@@ -7,14 +7,20 @@
 
 package com.usefullc.ud.service.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-
+import com.usefullc.platform.common.utils.BeanUtils;
+import com.usefullc.platform.common.utils.DateUtils;
+import com.usefullc.platform.common.web.Pagination;
+import com.usefullc.platform.service.AbstractBaseService;
+import com.usefullc.platform.web.form.TreeFrm;
+import com.usefullc.ud.common.ApplicationBuilder;
+import com.usefullc.ud.common.bo.*;
+import com.usefullc.ud.common.db.DbBuilder;
+import com.usefullc.ud.common.db.DbBuilderFactory;
+import com.usefullc.ud.common.enums.GenFileBisTypeEnum;
+import com.usefullc.ud.dao.IApplicationDao;
+import com.usefullc.ud.domain.*;
+import com.usefullc.ud.service.*;
+import com.usefullc.ud.web.form.ApplicationFrm;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -24,48 +30,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.usefullc.platform.common.utils.BeanUtils;
-import com.usefullc.platform.common.utils.DateUtils;
-import com.usefullc.platform.common.web.Pagination;
-import com.usefullc.platform.service.AbstractBaseService;
-import com.usefullc.platform.web.form.TreeFrm;
-import com.usefullc.ud.common.ApplicationBuilder;
-import com.usefullc.ud.common.bo.ApplicationBo;
-import com.usefullc.ud.common.bo.EntityBo;
-import com.usefullc.ud.common.bo.PropertyBo;
-import com.usefullc.ud.common.bo.TemplateBo;
-import com.usefullc.ud.common.bo.ValidItemBo;
-import com.usefullc.ud.common.bo.ValidPropertyBo;
-import com.usefullc.ud.common.db.DbBuilder;
-import com.usefullc.ud.common.db.DbBuilderFactory;
-import com.usefullc.ud.common.enums.GenFileBisTypeEnum;
-import com.usefullc.ud.dao.IApplicationDao;
-import com.usefullc.ud.domain.Application;
-import com.usefullc.ud.domain.Attachment;
-import com.usefullc.ud.domain.DbConfigure;
-import com.usefullc.ud.domain.Entity;
-import com.usefullc.ud.domain.GenFile;
-import com.usefullc.ud.domain.HisEntity;
-import com.usefullc.ud.domain.HisProperty;
-import com.usefullc.ud.domain.Property;
-import com.usefullc.ud.domain.Template;
-import com.usefullc.ud.domain.ValidItem;
-import com.usefullc.ud.domain.ValidProperty;
-import com.usefullc.ud.domain.ValidRule;
-import com.usefullc.ud.service.IApplicationService;
-import com.usefullc.ud.service.IAttachmentService;
-import com.usefullc.ud.service.IDbConfigureService;
-import com.usefullc.ud.service.IEntityService;
-import com.usefullc.ud.service.IGenFileService;
-import com.usefullc.ud.service.IHisEntityService;
-import com.usefullc.ud.service.IHisPropertyService;
-import com.usefullc.ud.service.IPropertyService;
-import com.usefullc.ud.service.ITemplateService;
-import com.usefullc.ud.service.IValidItemPropertyService;
-import com.usefullc.ud.service.IValidItemService;
-import com.usefullc.ud.service.IValidPropertyService;
-import com.usefullc.ud.service.IValidRuleService;
-import com.usefullc.ud.web.form.ApplicationFrm;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * 应用 Service 实现类
@@ -263,7 +230,7 @@ public class ApplicationServiceImpl extends AbstractBaseService implements IAppl
 
     @Transactional
     @Override
-    public void buildApp(Long id, Object[] entityIdArray) {
+    public Long buildApp(Long id, Object[] entityIdArray) {
         ApplicationBuilder ab = new ApplicationBuilder();
         ApplicationBo appBo = getAppBo(id, entityIdArray);
         Attachment attachment = ab.buildApp(appBo);
@@ -279,6 +246,7 @@ public class ApplicationServiceImpl extends AbstractBaseService implements IAppl
         genFile.setBisType(GenFileBisTypeEnum.SINGLE.getValue());
         genFile.setAttachmentId(attachment.getId());
         genFileService.insertGenFile(genFile);
+        return genFile.getId();
     }
 
     @Transactional
