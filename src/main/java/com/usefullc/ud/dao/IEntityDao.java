@@ -6,12 +6,11 @@
  */
 
 package com.usefullc.ud.dao;
+import com.usefullc.platform.common.web.Pagination;
+import com.usefullc.ud.domain.Entity;
+
 import java.util.List;
 import java.util.Map;
-
-import com.usefullc.platform.common.web.Pagination;
-
-import com.usefullc.ud.domain.Entity;
 
 /**
  * 实体DAO
@@ -27,7 +26,9 @@ public interface  IEntityDao {
 	 * @return
 	 */
 	Entity getEntity(Long id);
-	
+
+	Entity getEntityByEnName(String enName);
+
 	/**
 	 * 获得实体列表
 	 * @param queryMap

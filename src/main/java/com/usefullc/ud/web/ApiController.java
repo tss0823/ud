@@ -47,6 +47,7 @@ public class ApiController extends BaseController {
         return page;
     }
 
+
     @RequestMapping("entitySave.do")
     @ResponseBody
     public CommonJsonForm entitySave(Entity domain) {
@@ -66,6 +67,13 @@ public class ApiController extends BaseController {
     @ResponseBody
     public CommonJsonForm entityDetail(@RequestParam Long id) {
         Entity domain = entityService.getEntity(id);
+        return new CommonJsonForm(SUCCESS,domain);
+    }
+
+    @RequestMapping("getEntityByEnName.do")
+    @ResponseBody
+    public CommonJsonForm getEntityByEnName(@RequestParam String enName) {
+        Entity domain = entityService.getEntityByEnName(enName);
         return new CommonJsonForm(SUCCESS,domain);
     }
 

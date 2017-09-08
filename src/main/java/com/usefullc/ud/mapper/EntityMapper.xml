@@ -54,9 +54,13 @@
 		 and  `short_name` = #{shortName}
 		</if> 
 	</sql>
-	
+
 	<select id="getEntity" resultMap="entityMap">
-		 select * from entity WHERE id = #{id}
+		select * from entity WHERE id = #{id}
+	</select>
+
+	<select id="getEntityByEnName" resultMap="entityMap">
+		 select * from entity WHERE enName = #{enName}
     </select>
     
     <insert id="insertEntity" parameterType="Entity" >  

@@ -7,16 +7,6 @@
 
 package com.usefullc.ud.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.usefullc.platform.common.utils.BeanUtils;
 import com.usefullc.platform.common.web.Pagination;
 import com.usefullc.platform.service.AbstractBaseService;
@@ -25,11 +15,16 @@ import com.usefullc.ud.dao.IEntityDao;
 import com.usefullc.ud.domain.Application;
 import com.usefullc.ud.domain.Entity;
 import com.usefullc.ud.domain.Property;
-import com.usefullc.ud.service.IApplicationService;
-import com.usefullc.ud.service.IEntityService;
-import com.usefullc.ud.service.IHisEntityService;
-import com.usefullc.ud.service.IProjectService;
-import com.usefullc.ud.service.IPropertyService;
+import com.usefullc.ud.service.*;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 实体 Service 实现类
@@ -58,6 +53,11 @@ public class EntityServiceImpl extends AbstractBaseService implements IEntitySer
     @Override
     public Entity getEntity(Long id) {
         return entityDao.getEntity(id);
+    }
+
+    @Override
+    public Entity getEntityByEnName(String enName) {
+        return entityDao.getEntityByEnName(enName);
     }
 
     @Override
@@ -91,6 +91,9 @@ public class EntityServiceImpl extends AbstractBaseService implements IEntitySer
 
     @Override
     public void deleteEntity(Long id) {
+        Entity entity = entityDao.getEntity(id);
+        entity.setEnName(entity.getEnName()+"_"+entity.getId());
+        entityDao.updateEntity(entity);
         entityDao.deleteEntity(id);
         this.propertyService.deletePropertyByEntityId(id);
 
