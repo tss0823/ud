@@ -3,9 +3,11 @@ package com.usefullc.ud.web;
 import com.usefullc.platform.common.utils.BeanUtils;
 import com.usefullc.platform.common.web.Pagination;
 import com.usefullc.ud.common.enums.DataTypeEnum;
+import com.usefullc.ud.domain.DbConfigure;
 import com.usefullc.ud.domain.Entity;
 import com.usefullc.ud.domain.Property;
 import com.usefullc.ud.service.IApplicationService;
+import com.usefullc.ud.service.IDbConfigureService;
 import com.usefullc.ud.service.IEntityService;
 import com.usefullc.ud.service.IPropertyService;
 import com.usefullc.ud.web.form.CommonJsonForm;
@@ -38,6 +40,15 @@ public class ApiController extends BaseController {
     @Autowired
     private IPropertyService propertyService;
 
+    @Autowired
+    private IDbConfigureService dbConfigureService;
+
+    @RequestMapping("getDbConfigure.do")
+    @ResponseBody
+    public CommonJsonForm getDbConfigure(@RequestParam Long appId) {
+        DbConfigure dbConfigure = dbConfigureService.getDbConfigureByAppId(appId);
+        return new CommonJsonForm(SUCCESS,dbConfigure);
+    }
 
     @RequestMapping("entityList.do")
     @ResponseBody

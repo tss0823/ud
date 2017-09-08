@@ -8,17 +8,18 @@
 package com.usefullc.ud.service.impl;
 
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.usefullc.platform.common.web.Pagination;
 import com.usefullc.platform.service.AbstractBaseService;
 import com.usefullc.ud.dao.IDbConfigureDao;
+import com.usefullc.ud.domain.Application;
 import com.usefullc.ud.domain.DbConfigure;
+import com.usefullc.ud.service.IApplicationService;
 import com.usefullc.ud.service.IDbConfigureService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 数据库配置   Service 实现类
@@ -32,9 +33,19 @@ public class DbConfigureServiceImpl extends AbstractBaseService implements IDbCo
 	@Autowired
 	private IDbConfigureDao dbConfigureDao;
 
+	@Autowired
+	private IApplicationService applicationService;
+
 	@Override
 	public DbConfigure getDbConfigure(Long id) {
 		return dbConfigureDao.getDbConfigure(id);
+	}
+
+	@Override
+	public DbConfigure getDbConfigureByAppId(Long appId) {
+		Application application = applicationService.getApplication(appId);
+		DbConfigure dbConfigure = this.getDbConfigure(application.getDbId());
+		return dbConfigure;
 	}
 
 	@Override

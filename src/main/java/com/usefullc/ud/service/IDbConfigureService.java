@@ -25,7 +25,9 @@ public interface IDbConfigureService {
 	 * @return
 	 */
 	DbConfigure getDbConfigure(Long id);
-	
+
+	DbConfigure getDbConfigureByAppId(Long appId);
+
 	/**
 	 * 获得数据库配置列表
 	 * @param queryMap
