@@ -60,7 +60,7 @@
 	</select>
 
 	<select id="getEntityByEnName" resultMap="entityMap">
-		 select * from entity WHERE enName = #{enName}
+		 select * from entity WHERE en_name = #{enName} and del_state = 1
     </select>
     
     <insert id="insertEntity" parameterType="Entity" >  
