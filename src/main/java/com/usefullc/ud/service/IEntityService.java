@@ -30,7 +30,7 @@ public interface IEntityService {
      */
     Entity getEntity(Long id);
 
-    Entity getEntityByEnName(String enName);
+    Entity getEntityByEnName(Long appId,String enName);
 
     /**
      * 获得实体列表

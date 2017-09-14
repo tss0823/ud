@@ -56,8 +56,8 @@ public class EntityServiceImpl extends AbstractBaseService implements IEntitySer
     }
 
     @Override
-    public Entity getEntityByEnName(String enName) {
-        return entityDao.getEntityByEnName(enName);
+    public Entity getEntityByEnName(Long appId,String enName) {
+        return entityDao.getEntityByEnName(appId,enName);
     }
 
     @Override

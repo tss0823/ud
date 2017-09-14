@@ -83,8 +83,8 @@ public class ApiController extends BaseController {
 
     @RequestMapping("getEntityByEnName.do")
     @ResponseBody
-    public CommonJsonForm getEntityByEnName(@RequestParam String enName) {
-        Entity domain = entityService.getEntityByEnName(enName);
+    public CommonJsonForm getEntityByEnName(@RequestParam Long appId,@RequestParam String enName) {
+        Entity domain = entityService.getEntityByEnName(appId,enName);
         return new CommonJsonForm(SUCCESS,domain);
     }
 

@@ -13,6 +13,7 @@ import com.usefullc.ud.dao.IEntityDao;
 import com.usefullc.ud.domain.Entity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +26,11 @@ public class EntityDaoImpl extends AbstractBaseDao implements IEntityDao {
 	}
 
 	@Override
-	public Entity getEntityByEnName(String enName) {
-		return (Entity) sqlSession.selectOne("EntityMapper.getEntityByEnName", enName);
+	public Entity getEntityByEnName(Long appId,String enName) {
+	    Map<String,Object> paramMap = new HashMap();
+	    paramMap.put("appId",appId);
+		paramMap.put("enName",enName);
+		return (Entity) sqlSession.selectOne("EntityMapper.getEntityByEnName", paramMap);
 	}
 
 	@Override
